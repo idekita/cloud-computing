@@ -1,5 +1,6 @@
 const Project = require("../models/Project");
 const { authenticateToken } = require("../config/middleware/authMiddleware");
+const Category = require("../models/Category");
 
 const projectHandler = {
   getAllProjects: async (request, h) => {
@@ -9,11 +10,16 @@ const projectHandler = {
 
       const getUsernameLogin = request.auth.username;
 
-      // Mengambil semua kategori dari database
       const projects = await Project.findAll({
         where: {
           creator: getUsernameLogin,
         },
+        include: [
+          {
+            model: Category,
+            attributes: ["nm_kategori"],
+          },
+        ],
       });
 
       const response = h.response({
