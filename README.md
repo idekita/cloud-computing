@@ -16,17 +16,17 @@
 | Endpoint | Method | Authorization | Description |
 |---------|---------|---------|---------|
 | /proyek | POST | Yes | to create project |
-| /proyek | GET | Yes | to get all project data with a logged-in username |
+| /proyek | GET | Yes | to get all created project data |
 | /proyek/:id_proyek | GET | Yes | to get project data by id project |
 
 
 ## Contribution Endpoint
 | Endpoint | Method | Authorization | Description |
 |---------|---------|---------|---------|
-| /kontributor/:id_kontributor | PUT | Yes | to change the contributor status to accepted or not by id_kontributor |
-| /kontributor/:id_proyek | GET | Yes | to get contributor data on the project by id project |
+| /kontributor/:id_kontributor | PUT | Yes | to change the contributor status to accepted or not by id |
+| /kontributor/:id_proyek | GET | Yes | to get contributor data on the project by id project where status = waiting |
 
 ## Rating Endpoint
 | Endpoint | Method | Authorization | Description |
 |---------|---------|---------|---------|
-| /rating | POST | Yes | to do a rating based on id project |
+| /rating | POST | Yes | to do a rating |
