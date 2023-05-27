@@ -13,6 +13,16 @@ const projectRoutes = [
     },
   },
   {
+    method: "GET",
+    path: "/proyek/{id_proyek}",
+    handler: projectHandler.getProjectById,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+    },
+  },
+  {
     method: "POST",
     path: "/proyek",
     handler: projectHandler.createProject,

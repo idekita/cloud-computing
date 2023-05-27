@@ -5,10 +5,8 @@ const { authenticateToken } = require("../config/middleware/authMiddleware");
 const categoryHandler = {
   getAllCategories: async (request, h) => {
     try {
-      // Periksa token JWT yang dikirimkan dalam header Authorization
       await authenticateToken(request, h);
 
-      // Mengambil semua kategori dari database
       const categories = await Category.findAll();
 
       const response = h.response({

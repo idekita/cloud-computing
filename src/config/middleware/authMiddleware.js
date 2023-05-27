@@ -1,12 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-const secretKey = "tokenidekita";
+const secretKey = "iin!alahad@iatdike#ka3tB0a1B2icgnth2";
 
 const validate = async (decoded, request, h) => {
-  // Implementasikan logika validasi tambahan di sini
-  // Misalnya, memeriksa apakah pengguna masih ada di database
-  // Jika validasi gagal, Anda dapat melempar kesalahan atau mengembalikan { isValid: false }.
-
   return { isValid: true };
 };
 
