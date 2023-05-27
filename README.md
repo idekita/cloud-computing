@@ -21,8 +21,12 @@
 
 
 ## Contribution Endpoint
+| Endpoint | Method | Authorization | Description |
+|---------|---------|---------|---------|
 | /kontributor/:id_kontributor | PUT | Yes | to change the contributor status to accepted or not by id_kontributor |
 | /kontributor/:id_proyek | GET | Yes | to get contributor data on the project by id_proyek |
 
 ## Rating Endpoint
+| Endpoint | Method | Authorization | Description |
+|---------|---------|---------|---------|
 | /rating | POST | Yes | to do a rating based on id_proyek |
