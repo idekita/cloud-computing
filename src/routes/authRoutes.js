@@ -33,6 +33,16 @@ const authRoutes = [
     },
   },
   {
+    method: "GET",
+    path: "/profil/{username}",
+    handler: authHandler.getProfilByUsername,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+    },
+  },
+  {
     method: "POST",
     path: "/logout",
     handler: authHandler.logout,

@@ -49,6 +49,21 @@ const Project = sequelize.define(
       allowNull: false,
       defaultValue: "terbuka",
     },
+    total_rate: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    jumlah_raters: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    mean_rate: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     timestamps: false, // menonaktifkan fitur timestamps

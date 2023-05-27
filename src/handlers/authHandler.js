@@ -1,7 +1,10 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const Jwt = require("jsonwebtoken");
-const { secretKey } = require("../config/middleware/authMiddleware");
+const {
+  secretKey,
+  authenticateToken,
+} = require("../config/middleware/authMiddleware");
 
 const saltRounds = 10;
 const authHandler = {
@@ -93,36 +96,42 @@ const authHandler = {
     }
   },
 
-  logout: async (request, h) => {
+  getProfilByUsername: async (request, h) => {
     try {
-      // Mendapatkan token dari header Authorization
-      const authHeader = request.headers.authorization;
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        const response = h.response({
-          status: "fail",
-          message: "Unauthorized",
-        });
-        response.code(401);
-        return response;
-      }
+      await authenticateToken(request, h);
 
-      // const token = authHeader.substring(7);
+      const getUsernameLogin = request.auth.username;
+
+      const user = await User.findOne({
+        where: {
+          username: getUsernameLogin,
+        },
+        attributes: { exclude: ["password"] },
+      });
 
       const response = h.response({
         status: "success",
-        message: "Logout berhasil",
+        message: "Username berhasil ditemukan",
+        user: user,
       });
       response.code(200);
       return response;
     } catch (error) {
-      console.error("Error in logout:", error);
       const response = h.response({
-        status: "error",
-        message: "Internal Server Error",
+        status: "fail",
+        message: "Username tidak ditemukan",
       });
       response.code(500);
       return response;
     }
+  },
+
+  logout: async (request, h) => {
+    await authenticateToken(request, h);
+
+    return {
+      message: "Berhasil logout",
+    };
   },
 };
 module.exports = {
