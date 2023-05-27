@@ -24,7 +24,7 @@
 | Endpoint | Method | Authorization | Description |
 |---------|---------|---------|---------|
 | /kontributor/:id_kontributor | PUT | Yes | to change the contributor status to accepted or not by id |
-| /kontributor/:id_proyek | GET | Yes | to get contributor data on the project by id project where status = waiting |
+| /kontributor/:id_proyek | GET | Yes | to get contributor data on the project where status = waiting |
 
 ## Rating Endpoint
 | Endpoint | Method | Authorization | Description |
