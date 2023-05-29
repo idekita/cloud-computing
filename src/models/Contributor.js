@@ -17,7 +17,8 @@ const Contributor = sequelize.define(
       allowNull: false,
       references: {
         model: Project,
-        key: "id_proyek",
+        key: "id",
+        allowNull: false,
       },
     },
     username: {
@@ -40,15 +41,12 @@ const Contributor = sequelize.define(
     },
   },
   {
-    timestamps: false, // menonaktifkan fitur timestamps
+    timestamps: false,
   }
 );
 
-// Definisikan hubungan antara Contributor dengan Project dan User
-Contributor.belongsTo(Project, {
-  foreignKey: "id_proyek",
-  targetKey: "id",
-});
+Contributor.belongsTo(Project, { foreignKey: "id_proyek" });
+
 Contributor.belongsTo(User, { foreignKey: "username", targetKey: "username" });
 
 module.exports = Contributor;

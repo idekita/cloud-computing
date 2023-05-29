@@ -1,6 +1,7 @@
-const Project = require("../models/Project");
 const { authenticateToken } = require("../config/middleware/authMiddleware");
+const Project = require("../models/Project");
 const Category = require("../models/Category");
+const Contributor = require("../models/Contributor");
 
 const projectHandler = {
   getAllProjects: async (request, h) => {
@@ -11,8 +12,82 @@ const projectHandler = {
       const getUsernameLogin = request.auth.username;
 
       const projects = await Project.findAll({
+        include: [
+          {
+            model: Category,
+            attributes: ["nm_kategori"],
+          },
+        ],
+        order: [["tanggal_mulai", "DESC"]],
+      });
+
+      const response = h.response({
+        status: "success",
+        message: "Daftar Project berhasil ditemukan",
+        projects: projects,
+      });
+      response.code(200);
+      return response;
+    } catch (error) {
+      const response = h.response({
+        status: "fail",
+        message: "Gagal mengambil daftar project",
+      });
+      response.code(500);
+      return response;
+    }
+  },
+
+  getAllProjectByCategory: async (request, h) => {
+    try {
+      // Periksa token JWT yang dikirimkan dalam header Authorization
+      await authenticateToken(request, h);
+
+      const getUsernameLogin = request.auth.username;
+      const { kategori } = request.params;
+
+      const projects = await Project.findAll({
+        winclude: [
+          {
+            model: Category,
+            where: {
+              nm_kategori: kategori,
+            },
+            attributes: ["nm_kategori"],
+          },
+        ],
+      });
+
+      const response = h.response({
+        status: "success",
+        message: "Daftar Project berhasil ditemukan",
+        projects: projects,
+      });
+      response.code(200);
+      return response;
+    } catch (error) {
+      const response = h.response({
+        status: "fail",
+        message: "Gagal mengambil daftar project",
+      });
+      response.code(500);
+      return response;
+    }
+  },
+
+  getProjectsById: async (request, h) => {
+    try {
+      // Periksa token JWT yang dikirimkan dalam header Authorization
+      await authenticateToken(request, h);
+
+      const { id_proyek } = request.params;
+
+      const getUsernameLogin = request.auth.username;
+
+      const projects = await Project.findAll({
         where: {
           creator: getUsernameLogin,
+          id_proyek: id_proyek,
         },
         include: [
           {
@@ -39,28 +114,32 @@ const projectHandler = {
     }
   },
 
-  getProjectById: async (request, h) => {
+  getProjectsByStatus: async (request, h) => {
     try {
-      // Periksa token JWT yang dikirimkan dalam header Authorization
       await authenticateToken(request, h);
 
-      const { id_proyek } = request.params;
+      const { status } = request.params;
 
       const getUsernameLogin = request.auth.username;
-
+      console.log("p");
       const projects = await Project.findAll({
         where: {
-          creator: getUsernameLogin,
-          id_proyek: id_proyek,
+          status: status,
         },
         include: [
+          {
+            model: Contributor,
+            where: {
+              username: getUsernameLogin,
+            },
+          },
           {
             model: Category,
             attributes: ["nm_kategori"],
           },
         ],
       });
-
+      console.log("q");
       const response = h.response({
         status: "success",
         message: "Daftar Project berhasil ditemukan",

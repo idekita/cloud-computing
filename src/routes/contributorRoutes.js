@@ -5,7 +5,7 @@ const contributorRoutes = [
   {
     method: "GET",
     path: "/kontributor/{id_proyek}",
-    handler: contributorHandler.getAllContributors,
+    handler: contributorHandler.getAllContributorsWaiting,
     options: {
       auth: {
         strategy: "jwt",

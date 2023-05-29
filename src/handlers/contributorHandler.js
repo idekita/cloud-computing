@@ -3,19 +3,19 @@ const Project = require("../models/Project");
 const { authenticateToken } = require("../config/middleware/authMiddleware");
 
 const contributorHandler = {
-  getAllContributors: async (request, h) => {
+  getAllContributorsWaiting: async (request, h) => {
     try {
-      // Periksa token JWT yang dikirimkan dalam header Authorization
       await authenticateToken(request, h);
 
       const { id_proyek } = request.params;
       const getUsernameLogin = request.auth.username;
-      console.log(getUsernameLogin);
+
       // Mengambil semua kategori dari database
       const contributors = await Contributor.findAll({
         where: {
           username: getUsernameLogin,
           id_proyek: id_proyek,
+          status_lamaran: "menunggu",
         },
       });
 
@@ -38,8 +38,6 @@ const contributorHandler = {
 
   createContributor: async (request, h) => {
     try {
-      console.log("helo");
-      // Periksa token JWT yang dikirimkan dalam header Authorization
       await authenticateToken(request, h);
       const getUsernameLogin = request.auth.username;
 
@@ -88,7 +86,6 @@ const contributorHandler = {
 
   updateContributorStatus: async (request, h) => {
     try {
-      // Periksa token JWT yang dikirimkan dalam header Authorization
       await authenticateToken(request, h);
 
       const { id_kontributor } = request.params;
@@ -113,7 +110,7 @@ const contributorHandler = {
       const id_proyek = contributor.id_proyek;
 
       const project = await Project.findOne({ where: { id_proyek } });
-      console.log("ini " + id_proyek);
+
       if (!project) {
         const response = h.response({
           status: "fail",

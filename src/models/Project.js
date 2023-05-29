@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+// const Contributor = require("./Contributor");
 const Category = require("./Category");
 const User = require("./User");
 
@@ -70,6 +71,11 @@ const Project = sequelize.define(
   }
 );
 
+// Project.hasMany(Contributor, {
+//   foreignKey: "id_proyek",
+//   targetKey: "id",
+// });
 Project.belongsTo(Category, { foreignKey: "id_kategori" });
 Project.belongsTo(User, { foreignKey: "creator", targetKey: "username" });
+
 module.exports = Project;
