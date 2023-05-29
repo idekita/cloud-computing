@@ -27,7 +27,7 @@ const authHandler = {
         const token = Jwt.sign(
           { username: user.username },
           secretKey,
-          { expiresIn: "30m" } // Durasi token berlaku
+          { expiresIn: "1h" } // Durasi token berlaku
         );
 
         const currentDate = new Date();

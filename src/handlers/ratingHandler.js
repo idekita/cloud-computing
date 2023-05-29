@@ -44,7 +44,7 @@ const ratingHandler = {
       const existingRating = await Rating.findOne({
         where: { id_proyek, username: getUsernameLogin },
       });
-      console.log("cek projek");
+
       if (existingRating) {
         const response = h.response({
           status: "fail",

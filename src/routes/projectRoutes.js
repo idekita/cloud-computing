@@ -14,8 +14,33 @@ const projectRoutes = [
   },
   {
     method: "GET",
+    path: "/proyek/kategori/{kategori}",
+    handler: projectHandler.getAllProjectByCategory,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+    },
+  },
+  {
+    method: "GET",
+    path: "/proyek/status/{status}",
+    handler: projectHandler.getProjectsByStatus,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+      validate: {
+        params: Joi.object({
+          status: Joi.string().valid("berlangsung", "selesai").required(),
+        }),
+      },
+    },
+  },
+  {
+    method: "GET",
     path: "/proyek/{id_proyek}",
-    handler: projectHandler.getProjectById,
+    handler: projectHandler.getProjectsById,
     options: {
       auth: {
         strategy: "jwt",
