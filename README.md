@@ -79,9 +79,9 @@
 
 ## Category Endpoint
 
-| Endpoint  | Method | Authorization | Description              |
-| --------- | ------ | ------------- | ------------------------ |
-| /kategori | GET    | Yes           | to get all category data |
+|No| Endpoint  | Method | Authorization | Description              |
+| --- |--------- | ------ | ----------- | ------------------------ |
+| 1 |/kategori | GET    | Yes           | to get all category data |
 
 ### 1. Kategori
 
@@ -121,21 +121,21 @@
 
 ## Project Endpoint
 
-| Endpoint           | Method | Authorization | Description                       |
-| ------------------ | ------ | ------------- | --------------------------------- |
-| /proyek            | POST   | Yes           | to create project                 |
-| /proyek            | GET    | Yes           | to get all created project data   |
-| /proyek/:id_proyek | GET    | Yes           | to get project data by id project |
+|No| Endpoint           | Method | Authorization | Description                       |
+|---| ------------------ | ------ | ---------- | --------------------------------- |
+|1| /proyek            | POST   | Yes           | to create project                 |
+|2| /proyek            | GET    | Yes           | to get all created project data   |
+|3| /proyek/:id_proyek | GET    | Yes           | to get project data by id project |
 
 ## Contribution Endpoint
 
-| Endpoint                     | Method | Authorization | Description                                                   |
-| ---------------------------- | ------ | ------------- | ------------------------------------------------------------- |
-| /kontributor/:id_kontributor | PUT    | Yes           | to change the contributor status to accepted or not by id     |
-| /kontributor/:id_proyek      | GET    | Yes           | to get contributor data on the project where status = waiting |
+|No| Endpoint                     | Method | Authorization | Description                                                   |
+|---| ---------------------------- | ------ | ------------- | ------------------------------------------------------------- |
+| 1 | /kontributor/:id_kontributor | PUT    | Yes           | to change the contributor status to accepted or not by id     |
+| 2 | /kontributor/:id_proyek      | GET    | Yes           | to get contributor data on the project where status = waiting |
 
 ## Rating Endpoint
 
-| Endpoint | Method | Authorization | Description    |
-| -------- | ------ | ------------- | -------------- |
-| /rating  | POST   | Yes           | to do a rating |
+|No| Endpoint | Method | Authorization | Description    |
+|---| -------- | ------ | ------------- | -------------- |
+| 1 | /rating  | POST   | Yes           | to do a rating |
