@@ -11,24 +11,25 @@
 ### 1. Register
 
 - Request Body:
-
   - username as string, must be unique
   - password as string
   - name as string
   - email as string
 
 - Response:
+  ```
   {
-  "status": "success",
-  "message": "Registrasi berhasil",
-  "user": {
-  "id": 4,
-  "username": "user",
-  "password": "$2b$10$2ZS4DPxagGU./Nr2IlsNR.p7SwYq8FFvicxxOqui2tY7tKmgtG/.W",
-  "name": "User Baru",
-  "email": "user@gmail.com"
+    "status": "success",
+    "message": "Registrasi berhasil",
+    "user": {
+    "id": 4,
+    "username": "user",
+    "password": "$2b$10$2ZS4DPxagGU./Nr2IlsNR.p7SwYq8FFvicxxOqui2tY7tKmgtG/.W",
+    "name": "User Baru",
+    "email": "user@gmail.com"
+    }
   }
-  }
+  ```
 
 ### 2. Login
 
@@ -38,16 +39,18 @@
   - password as string
 
 - Response:
+  ```
   {
-  "status": "success",
-  "message": "Login berhasil",
-  "user": {
-  "username": "user",
-  "name": "User Baru",
-  "email": "user@gmail.com"
-  },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE2ODU0MDgxMTYsImV4cCI6MTY4NTQxMTcxNn0.eRwhWf2DgSOgc-W4HeY1tbjyrOa82M24zowUsMs9aZQ"
+    "status": "success",
+    "message": "Login berhasil",
+    "user": {
+    "username": "user",
+    "name": "User Baru",
+    "email": "user@gmail.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE2ODU0MDgxMTYsImV4cCI6MTY4NTQxMTcxNn0.eRwhWf2DgSOgc-W4HeY1tbjyrOa82M24zowUsMs9aZQ"
   }
+  ```
 
 ### 3. Profil
 
@@ -60,17 +63,19 @@
   - username as string, required
 
 - Response:
+  ```
   {
-  "status": "success",
-  "message": "Username berhasil ditemukan",
-  "user": {
-  "id": 4,
-  "username": "user",
-  "name": "User Baru",
-  "email": "user@gmail.com",
-  "last_login": "2023-05-30T07:55:16.459Z"
+    "status": "success",
+    "message": "Username berhasil ditemukan",
+    "user": {
+    "id": 4,
+    "username": "user",
+    "name": "User Baru",
+    "email": "user@gmail.com",
+    "last_login": "2023-05-30T07:55:16.459Z"
+    }
   }
-  }
+  ```
 
 ## Category Endpoint
 
@@ -85,32 +90,34 @@
   - Authorization: Bearer <token>
 
 - Response:
+  ```
   {
-  "status": "success",
-  "message": "Daftar kategori berhasil ditemukan",
-  "categories": [
-  {
-  "id": 1,
-  "nm_kategori": "Sosial"
-  },
-  {
-  "id": 2,
-  "nm_kategori": "Pendidikan"
-  },
-  {
-  "id": 3,
-  "nm_kategori": "Kesehatan"
-  },
-  {
-  "id": 4,
-  "nm_kategori": "Budaya"
-  },
-  {
-  "id": 5,
-  "nm_kategori": "Politik"
+    "status": "success",
+    "message": "Daftar kategori berhasil ditemukan",
+    "categories": [
+    {
+    "id": 1,
+    "nm_kategori": "Sosial"
+    },
+    {
+    "id": 2,
+    "nm_kategori": "Pendidikan"
+    },
+    {
+    "id": 3,
+    "nm_kategori": "Kesehatan"
+    },
+    {
+    "id": 4,
+    "nm_kategori": "Budaya"
+    },
+    {
+    "id": 5,
+    "nm_kategori": "Politik"
+    }
+    ]
   }
-  ]
-  }
+  ```
 
 ## Project Endpoint
 
