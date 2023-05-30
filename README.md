@@ -2,11 +2,11 @@
 
 ## Auth and User Endpoint
 
-| Endpoint          | Method | Authorization | Description                                  |
-| ----------------- | ------ | ------------- | -------------------------------------------- |
-| /register         | POST   | No            | to register a new user                       |
-| /login            | POST   | No            | to authenticate a user based on the database |
-| /profil/:username | GET    | Yes           | to get logged in user data                   |
+|No| Endpoint          | Method | Authorization | Description                                  |
+|---|------------------ | ------ | ----------- | -------------------------------------------- |
+|1| /register         | POST   | No            | to register a new user                       |
+|2| /login            | POST   | No            | to authenticate a user based on the database |
+|3| /profil/:username | GET    | Yes           | to get logged in user data                   |
 
 ### 1. Register
 
@@ -95,26 +95,26 @@
     "status": "success",
     "message": "Daftar kategori berhasil ditemukan",
     "categories": [
-    {
-    "id": 1,
-    "nm_kategori": "Sosial"
-    },
-    {
-    "id": 2,
-    "nm_kategori": "Pendidikan"
-    },
-    {
-    "id": 3,
-    "nm_kategori": "Kesehatan"
-    },
-    {
-    "id": 4,
-    "nm_kategori": "Budaya"
-    },
-    {
-    "id": 5,
-    "nm_kategori": "Politik"
-    }
+      {
+      "id": 1,
+      "nm_kategori": "Sosial"
+      },
+      {
+      "id": 2,
+      "nm_kategori": "Pendidikan"
+      },
+      {
+      "id": 3,
+      "nm_kategori": "Kesehatan"
+      },
+      {
+      "id": 4,
+      "nm_kategori": "Budaya"
+      },
+      {
+      "id": 5,
+      "nm_kategori": "Politik"
+      }
     ]
   }
   ```
