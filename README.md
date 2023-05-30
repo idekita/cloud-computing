@@ -141,7 +141,11 @@
   - to create project
 - **Header:**
   - `Authorization`: `Bearer {token}`
-
+- **Response:**
+  ```JSON
+  {}
+  ```
+  
 ### 2. Get All Project
 - **URL:** 
   - `/proyek`
@@ -151,6 +155,10 @@
   - to get all created project data
 - **Header:**
   - `Authorization`: `Bearer {token}`
+- **Response:**
+  ```JSON
+  {}
+  ```
 
 ### 3. Get Project by Id Project
 - **URL:** 
@@ -163,6 +171,10 @@
   - `Authorization`: `Bearer {token}`
 - **Parameters:**
   - `id_proyek` as `int`, required
+- **Response:**
+  ```JSON
+  {}
+  ```
 
 ## Contribution Endpoint
 ### 1. Register Contribute
