@@ -3,10 +3,12 @@
 ## Auth and User Endpoint
 
 ### 1. Register
-- **Endpoint:** `/register`
-- **Method:** `POST`
-- **Authorization:** No
-- **Description:** Register a new user.
+- **Endpoint:** 
+  - `/register`
+- **Method:** 
+  - `POST`
+- **Description:** 
+  - Register a new user.
 - **Request Body:**
   - username as string, must be unique
   - password as string
@@ -29,10 +31,12 @@
   ```
 
 ### 2. Login
-- **Endpoint:** `/login`
-- **Method:** `POST`
-- **Authorization:** No
-- **Description:** authenticate a user based on the database.
+- **Endpoint:** 
+  - `/login`
+- **Method:** 
+  - `POST`
+- **Description:** 
+  - authenticate a user based on the database.
 - **Request Body:**
   - username as string
   - password as string
@@ -52,10 +56,12 @@
   ```
 
 ### 3. Profil
-- **Endpoint:** `/profil/:username`
-- **Method:** `GET`
-- **Authorization:** Yes
-- **Description:** to get logged in user data.
+- **Endpoint:** 
+  - `/profil/:username`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get logged in user data.
 - **Request Body:**
   - username as string
   - password as string
