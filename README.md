@@ -1,5 +1,8 @@
 # API Endpoints Documentation
 
+### Endpoint
+-sedang dalam pengerjaan
+
 ## Auth and User Endpoint
 
 ### 1. Register
