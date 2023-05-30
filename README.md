@@ -17,7 +17,7 @@
   - email as string
 
 - Response:
-  ```
+  ```JSON
   {
     "status": "success",
     "message": "Registrasi berhasil",
@@ -39,7 +39,7 @@
   - password as string
 
 - Response:
-  ```
+  ```JSON
   {
     "status": "success",
     "message": "Login berhasil",
@@ -63,7 +63,7 @@
   - username as string, required
 
 - Response:
-  ```
+  ```JSON
   {
     "status": "success",
     "message": "Username berhasil ditemukan",
