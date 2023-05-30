@@ -10,10 +10,10 @@
 - **Description:** 
   - Register a new user.
 - **Request Body:**
-  - username as string, must be unique
-  - password as string
-  - name as string
-  - email as string
+  - `username` as `string`, must be unique
+  - `password` as `string`
+  - `name` as `string`
+  - `email` as `string`
 
 - **Response:**
   ```JSON
@@ -38,8 +38,8 @@
 - **Description:** 
   - authenticate a user based on the database.
 - **Request Body:**
-  - username as string
-  - password as string
+  - `username` as `string`
+  - `password` as `string`
 
 - **Response:**
   ```JSON
@@ -63,14 +63,14 @@
 - **Description:** 
   - to get logged in user data.
 - **Request Body:**
-  - username as string
-  - password as string
+  - `username` as `string`
+  - `password` as `string`
 
 - **Header:**
-  - Authorization: Bearer {token}
+  - `Authorization`: `Bearer {token}`
 
 - **Parameters:**
-  - username as string, required
+  - `username` as `string`, required
 
 - **Response:**
   ```JSON
