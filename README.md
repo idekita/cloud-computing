@@ -2,21 +2,18 @@
 
 ## Auth and User Endpoint
 
-|No| Endpoint          | Method | Authorization | Description                                  |
-|---|------------------ | ------ | ----------- | -------------------------------------------- |
-|1| /register         | POST   | No            | to register a new user                       |
-|2| /login            | POST   | No            | to authenticate a user based on the database |
-|3| /profil/:username | GET    | Yes           | to get logged in user data                   |
-
 ### 1. Register
-
-- Request Body:
+- **Endpoint:** `/register`
+- **Method:** `POST`
+- **Authorization:** No
+- **Description:** Register a new user.
+- **Request Body:**
   - username as string, must be unique
   - password as string
   - name as string
   - email as string
 
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
@@ -32,12 +29,15 @@
   ```
 
 ### 2. Login
-
-- Request Body:
+- **Endpoint:** `/login`
+- **Method:** `POST`
+- **Authorization:** No
+- **Description:** authenticate a user based on the database.
+- **Request Body:**
   - username as string
   - password as string
 
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
@@ -52,14 +52,21 @@
   ```
 
 ### 3. Profil
+- **Endpoint:** `/profil/:username`
+- **Method:** `GET`
+- **Authorization:** Yes
+- **Description:** to get logged in user data.
+- **Request Body:**
+  - username as string
+  - password as string
 
-- Header:
+- **Header:**
   - Authorization: Bearer {token}
 
-- Parameters:
+- **Parameters:**
   - username as string, required
 
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
