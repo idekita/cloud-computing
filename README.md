@@ -3,7 +3,7 @@
 ## Auth and User Endpoint
 
 ### 1. Register
-- **Endpoint:** 
+- **URL:** 
   - `/register`
 - **Method:** 
   - `POST`
@@ -31,7 +31,7 @@
   ```
 
 ### 2. Login
-- **Endpoint:** 
+- **URL:** 
   - `/login`
 - **Method:** 
   - `POST`
@@ -56,7 +56,7 @@
   ```
 
 ### 3. Profil
-- **Endpoint:** 
+- **URL:** 
   - `/profil/:username`
 - **Method:** 
   - `GET`
