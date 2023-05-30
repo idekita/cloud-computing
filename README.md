@@ -91,17 +91,17 @@
   ```
 
 ## Category Endpoint
-
-|No| Endpoint  | Method | Authorization | Description              |
-| --- |--------- | ------ | ----------- | ------------------------ |
-| 1 |/kategori | GET    | Yes           | to get all category data |
-
 ### 1. Kategori
+- **URL:** 
+  - `/kategori`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get all category data
+- **Header:**
+  - `Authorization`: `Bearer {token}`
 
-- Header:
-  - Authorization: Bearer {token}
-
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
@@ -132,31 +132,53 @@
   ```
 
 ## Project Endpoint
+### 1. Create Project
+- **URL:** 
+  - `/proyek`
+- **Method:** 
+  - `POST`
+- **Description:** 
+  - to create project
+- **Header:**
+  - `Authorization`: `Bearer {token}`
 
-|No| Endpoint           | Method | Authorization | Description                       |
-|---| ------------------ | ------ | ---------- | --------------------------------- |
-|1| /proyek              | POST   | Yes        | to create project                 |
-|2| /proyek              | GET    | Yes        | to get all created project data   |
-|3| /proyek/:id_proyek   | GET    | Yes        | to get project data by id project |
+### 2. Get All Project
+- **URL:** 
+  - `/proyek`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get all created project data
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+
+### 3. Get Project by Id Project
+- **URL:** 
+  - `/proyek/:id_proyek`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get project data by id project
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+- **Parameters:**
+  - `id_proyek` as `int`, required
 
 ## Contribution Endpoint
+### 1. Register Contribute
+- **URL:** 
+  - `/kontributor`
+- **Method:** 
+  - `POST`
+- **Description:** 
+  - to register contribute
+- **Header:**
+  - `Authorization`: `Bearer {token}`
 
-|No| Endpoint                     | Method | Authorization | Description                                                   |
-|---| ---------------------------- | ------ | ------------- | ------------------------------------------------------------- |
-| 1 | /kontributor                 | POST   | Yes           | to register contribute     |
-| 2 | /kontributor/:id_kontributor | PUT    | Yes           | to change the contributor status to accepted or not by id, to update it must be the creator project     |
-| 3 | /kontributor/:id_proyek      | GET    | Yes           | to get contributor data on the project where status = diterima|
-| 4 | /kontributor/menunggu/:id_proyek      | GET    | Yes           | to get contributor data on the project where status = menunggu |
+- **Request Body:**
+  - `id_proyek` as `int`, required
 
-### 1. Register Contribut
-  
-- Header:
-  - Authorization: Bearer <token>
-
-- Request Body:
-  - id_proyek as int, required
-
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
@@ -172,16 +194,21 @@
   ```
 
 ### 2. Change/Update Contributor Status
+- **URL:** 
+  - `/kontributor/:id_kontributor`
+- **Method:** 
+  - `PUT`
+- **Description:** 
+  - to change the contributor status to accepted or not by id, to update it must be the creator project
+- **Header:**
+  - `Authorization`: `Bearer {token}`
   
-- Header:
-  - Authorization: Bearer <token>
-  
-- Parameters:
-  - id_kontributor as int, required
+- **Parameters:**
+  - `id_kontributor` as `int`, required
 
-- Request Body:
-  - status_lamaran as enum ['menunggu'(default), 'ditolak', 'diterima'], required
-  - role as string, optional
+- **Request Body:**
+  - `status_lamaran` as `enum` ['menunggu'(default), 'ditolak', 'diterima'], required
+  - `role` as `string`, optional
 
 - Response:
   ```JSON
@@ -192,14 +219,19 @@
   ```
   
 ### 3. Get Contributors by Id Project
-  
-- Header:
-  - Authorization: Bearer <token>
+- **URL:** 
+  - `/kontributor/:id_proyek`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get contributor data on the project where status = diterima
+- **Header:**
+  - `Authorization`: `Bearer {token}`
 
-- Parameters:
-  - id_proyek as int, required
+- **Parameters:**
+  - `id_proyek` as `int`, required
 
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
@@ -221,13 +253,19 @@
   
   ### 4. Get Contributors Where Status Waiting
   
-- Header:
-  - Authorization: Bearer <token>
+- **URL:** 
+  - `/kontributor/menunggu/:id_proyek`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get contributor data on the project where status = menunggu
+- **Header:**
+  - `Authorization`: `Bearer {token}`
 
-- Parameters:
-  - id_proyek as int, required
+- **Parameters:**
+  - `id_proyek` as `int`, required
 
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
@@ -253,21 +291,21 @@
 
 
 ## Rating Endpoint
-
-|No| Endpoint | Method | Authorization | Description    |
-|---| -------- | ------ | ------------- | -------------- |
-| 1 | /rating  | POST   | Yes           | to do a rating |
-
 ### 1. Create Rating
-  
-- Header:
-  - Authorization: Bearer <token>
+- **URL:** 
+  - `/rating`
+- **Method:** 
+  - `POST`
+- **Description:** 
+  - to do a rating
+- **Header:**
+  - `Authorization`: `Bearer {token}`
 
-- Request Body:
+- **Request Body:**
   - id_proyek as int, required
   - password as int (1 - 5), required
 
-- Response:
+- **Response:**
   ```JSON
   {
     "status": "success",
