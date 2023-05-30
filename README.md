@@ -56,7 +56,7 @@
 
 - Header:
 
-  - Authorization: Bearer <token>
+  - Authorization: Bearer {token}
 
 - Parameters:
 
