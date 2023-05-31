@@ -1,7 +1,7 @@
 {
   "name": "idekita",
   "version": "1.0.0",
-  "description": "Proyek Akhir Submission Dicoding",
+  "description": "idekita Bangkit Capstone Project",
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
