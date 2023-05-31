@@ -141,26 +141,84 @@
   - to create project
 - **Header:**
   - `Authorization`: `Bearer {token}`
+- **Request Body:**
+  - `username` as `string`, must be unique
+  - `id_kategori` as `int`
+  - `tanggal_mulai` as `date`
+  - `tanggal_selesai` as `string`
 - **Response:**
   ```JSON
-  {}
+  {
+    "status": "success",
+    "message": "Project berhasil dibuat",
+    "project": {
+        "status": "terbuka",
+        "total_rate": 0,
+        "jumlah_raters": 0,
+        "mean_rate": 0,
+        "id": 4,
+        "creator": "deo",
+        "nm_proyek": "Platform E-Learning",
+        "id_kategori": 1,
+        "deskripsi": "ini adalah aplikasi elearning ruangbelajar",
+        "tanggal_mulai": "2023-05-29T00:00:00.000Z",
+        "tanggal_selesai": "2023-07-29T00:00:00.000Z"
+    }
+  }
   ```
   
-### 2. Get All Project
+### 2. Get All Projects
 - **URL:** 
   - `/proyek`
 - **Method:** 
   - `GET`
 - **Description:** 
-  - to get all created project data
+  - to get all created project data order by tanggal_mulai ascending
 - **Header:**
   - `Authorization`: `Bearer {token}`
 - **Response:**
   ```JSON
-  {}
+  {
+    "status": "success",
+    "message": "Daftar Project berhasil ditemukan",
+    "projects": [
+        {
+            "id": 2,
+            "creator": "deo",
+            "nm_proyek": "Platform Mengumpulkan Ide",
+            "id_kategori": 1,
+            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "tanggal_mulai": "2023-05-23",
+            "tanggal_selesai": "2023-08-24",
+            "status": "terbuka",
+            "total_rate": 4,
+            "jumlah_raters": 1,
+            "mean_rate": 4,
+            "category": {
+                "nm_kategori": "Sosial"
+            }
+        },
+        {
+            "id": 1,
+            "creator": "deo",
+            "nm_proyek": "Platform Crowdsourcing untu Masyarakat Jawa",
+            "id_kategori": 1,
+            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "tanggal_mulai": "2023-05-22",
+            "tanggal_selesai": "2023-08-22",
+            "status": "selesai",
+            "total_rate": 12,
+            "jumlah_raters": 3,
+            "mean_rate": 4,
+            "category": {
+                "nm_kategori": "Sosial"
+            }
+        }
+    ]
+  }
   ```
 
-### 3. Get Project by Id Project
+### 3. Detail Project
 - **URL:** 
   - `/proyek/:id_proyek`
 - **Method:** 
@@ -173,7 +231,75 @@
   - `id_proyek` as `int`, required
 - **Response:**
   ```JSON
-  {}
+  {
+    "status": "success",
+    "message": "Daftar Project berhasil ditemukan",
+    "projects": [
+        {
+            "id": 4,
+            "creator": "deo",
+            "nm_proyek": "Platform E-Learning",
+            "id_kategori": 1,
+            "deskripsi": "ini adalah aplikasi elearning ruangbelajar",
+            "tanggal_mulai": "2023-05-29",
+            "tanggal_selesai": "2023-07-29",
+            "status": "terbuka",
+            "total_rate": 0,
+            "jumlah_raters": 0,
+            "mean_rate": 0,
+            "category": {
+                "nm_kategori": "Sosial"
+            }
+        }
+    ]
+  }
+  ```
+  
+  ### 4. Get Project By Category
+- **URL:** 
+  - `/proyek/kategori/:kategori`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get project based on category
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+- **Parameters:**
+  - `kategori` as `string`, required
+- **Response:**
+  ```JSON
+  {
+    "status": "success",
+    "message": "Daftar Project berhasil ditemukan",
+    "projects": [
+        {
+            "id": 1,
+            "creator": "deo",
+            "nm_proyek": "Platform Crowdsourcing untuk Masyarakat",
+            "id_kategori": 1,
+            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "tanggal_mulai": "2023-05-22",
+            "tanggal_selesai": "2023-08-22",
+            "status": "selesai",
+            "total_rate": 12,
+            "jumlah_raters": 3,
+            "mean_rate": 4
+        },
+        {
+            "id": 2,
+            "creator": "deo",
+            "nm_proyek": "Platform Mengumpulkan Ide",
+            "id_kategori": 1,
+            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "tanggal_mulai": "2023-05-23",
+            "tanggal_selesai": "2023-08-24",
+            "status": "terbuka",
+            "total_rate": 4,
+            "jumlah_raters": 1,
+            "mean_rate": 4
+        }
+    ]
+  }
   ```
 
 ## Contribution Endpoint
