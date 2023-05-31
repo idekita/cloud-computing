@@ -301,6 +301,51 @@
     ]
   }
   ```
+### 5. Get My Project Based on Status
+- **URL:** 
+  - `/proyek/kategori/:kategori`
+- **Method:** 
+  - `GET`
+- **Description:** 
+  - to get project where status is in progress or status is done
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+- **Parameters:**
+  - `status` as `string`, `valid` : `'berlangsung'`,`'selesai'` ,required
+- **Response:** this is just an example for status = 'in progress'
+  ```JSON
+  {
+    "status": "success",
+    "message": "Daftar Project berhasil ditemukan",
+    "projects": [
+        {
+            "id": 2,
+            "creator": "deo",
+            "nm_proyek": "Platform Mengumpulkan Ide",
+            "id_kategori": 1,
+            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "tanggal_mulai": "2023-05-23",
+            "tanggal_selesai": "2023-08-24",
+            "status": "berlangsung",
+            "total_rate": 4,
+            "jumlah_raters": 1,
+            "mean_rate": 4,
+            "contributors": [
+                {
+                    "id": 2,
+                    "id_proyek": 2,
+                    "username": "zul",
+                    "role": "Beban",
+                    "status_lamaran": "diterima"
+                }
+            ],
+            "category": {
+                "nm_kategori": "Sosial"
+            }
+        }
+    ]
+  }
+  ```
 
 ## Contribution Endpoint
 ### 1. Register Contribute
