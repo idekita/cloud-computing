@@ -4,8 +4,18 @@ const Joi = require("@hapi/joi");
 const contributorRoutes = [
   {
     method: "GET",
-    path: "/kontributor/{id_proyek}",
+    path: "/kontributor/menunggu/{id_proyek}",
     handler: contributorHandler.getAllContributorsWaiting,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+    },
+  },
+  {
+    method: "GET",
+    path: "/kontributor/{id_proyek}",
+    handler: contributorHandler.getContributorsByIdProject,
     options: {
       auth: {
         strategy: "jwt",
@@ -35,11 +45,12 @@ const contributorRoutes = [
       auth: {
         strategy: "jwt",
       },
-      // validate: {
-      //   payload: Joi.object({
-      //     status_lamaran: Joi.string,
-      //   }),
-      // },
+      validate: {
+        payload: Joi.object({
+          status_lamaran: Joi.string().required(),
+          role: Joi.string().optional(),
+        }),
+      },
     },
   },
 ];

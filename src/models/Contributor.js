@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const Project = require("./Project");
 const User = require("./User");
 
 const Contributor = sequelize.define(
@@ -10,16 +9,11 @@ const Contributor = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: "id_kontributor", // menentukan nama kolom di database
+      field: "id_kontributor",
     },
     id_proyek: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: Project,
-        key: "id",
-        allowNull: false,
-      },
     },
     username: {
       type: DataTypes.STRING,
@@ -45,7 +39,7 @@ const Contributor = sequelize.define(
   }
 );
 
-Contributor.belongsTo(Project, { foreignKey: "id_proyek" });
+// Contributor.belongsTo(Project);
 
 Contributor.belongsTo(User, { foreignKey: "username", targetKey: "username" });
 

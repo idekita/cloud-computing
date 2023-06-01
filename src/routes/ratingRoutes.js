@@ -22,6 +22,7 @@ const ratingRoutes = [
       },
       validate: {
         payload: Joi.object({
+          id_proyek: Joi.number().required(),
           nilai: Joi.number().integer().min(1).max(5).required(),
         }),
       },
