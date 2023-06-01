@@ -1,5 +1,6 @@
 const Contributor = require("../models/Contributor");
 const Project = require("../models/Project");
+const User = require("../models/User");
 const { authenticateToken } = require("../config/middleware/authMiddleware");
 
 const contributorHandler = {
@@ -13,7 +14,6 @@ const contributorHandler = {
       // Mengambil semua kategori dari database
       const contributors = await Contributor.findAll({
         where: {
-          username: getUsernameLogin,
           id_proyek: id_proyek,
           status_lamaran: "menunggu",
         },
@@ -122,7 +122,7 @@ const contributorHandler = {
 
       // Dapatkan ID pembuat proyek dari properti proyek yang sesuai
       const creator = project.creator;
-      console.log("creator " + creator);
+
       // Periksa apakah pengguna yang melakukan permintaan adalah pembuat proyek yang sesuai
       if (creator !== getUsernameLogin) {
         const response = h.response({
@@ -132,7 +132,7 @@ const contributorHandler = {
         response.code(403);
         return response;
       }
-      console.log("message");
+
       let message;
       if (status_lamaran === "diterima") {
         message = "Lamaran berhasil diterima!";
@@ -168,6 +168,52 @@ const contributorHandler = {
       const response = h.response({
         status: "error",
         message: "Terjadi kesalahan server",
+      });
+      response.code(500);
+      return response;
+    }
+  },
+
+  getContributorsByIdProject: async (request, h) => {
+    try {
+      await authenticateToken(request, h);
+
+      const { id_proyek } = request.params;
+      const getUsernameLogin = request.auth.username;
+
+      const contributors = await Contributor.findAll({
+        where: {
+          id_proyek: id_proyek,
+          status_lamaran: "diterima",
+        },
+        include: [
+          {
+            model: User,
+            attributes: ["name"],
+            as: "user",
+          },
+        ],
+      });
+
+      const contributorsWithNames = contributors.map((contributor) => {
+        return {
+          username: contributor.username,
+          name: contributor.user.name,
+          role: contributor.role,
+        };
+      });
+
+      const response = h.response({
+        status: "success",
+        message: "Daftar Kontributor berhasil ditemukan",
+        contributors: contributorsWithNames,
+      });
+      response.code(200);
+      return response;
+    } catch (error) {
+      const response = h.response({
+        status: "fail",
+        message: "Gagal mengambil daftar kontributor",
       });
       response.code(500);
       return response;

@@ -66,6 +66,16 @@ const projectRoutes = [
       },
     },
   },
+  {
+    method: "DELETE",
+    path: "/proyek/{id_proyek}",
+    handler: projectHandler.deleteProjectById,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+    },
+  },
 ];
 
 module.exports = projectRoutes;
