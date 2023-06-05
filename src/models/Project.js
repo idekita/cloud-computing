@@ -37,6 +37,10 @@ const Project = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    gambar: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     tanggal_mulai: {
       type: DataTypes.DATE,
       allowNull: false,

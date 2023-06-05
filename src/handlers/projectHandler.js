@@ -2,6 +2,10 @@ const { authenticateToken } = require("../config/middleware/authMiddleware");
 const Project = require("../models/Project");
 const Category = require("../models/Category");
 const Contributor = require("../models/Contributor");
+const fs = require("fs");
+const path = require("path");
+const mime = require("mime-types");
+const { nanoid } = require("nanoid");
 
 const projectHandler = {
   getAllProjects: async (request, h) => {
@@ -37,7 +41,7 @@ const projectHandler = {
     }
   },
 
-  getAllProjectByCategory: async (request, h) => {
+  getAllProjectsByCategory: async (request, h) => {
     try {
       await authenticateToken(request, h);
 
@@ -118,7 +122,7 @@ const projectHandler = {
       const { status } = request.params;
 
       const getUsernameLogin = request.auth.username;
-      console.log(getUsernameLogin);
+
       const projects = await Project.findAll({
         where: {
           status: status,
@@ -160,6 +164,46 @@ const projectHandler = {
       await authenticateToken(request, h);
       const getUsernameLogin = request.auth.username;
 
+      const { file } = request.payload;
+
+        if (!file) {
+          return h
+            .response({
+              status: "fail",
+              message: "File tidak ditemukan.",
+            })
+            .code(400);
+        }
+
+        const mimeType = mime.lookup(file.hapi.filename);
+        console.log(mimeType);
+        if (mimeType !== "image/png" && mimeType !== "image/jpeg") {
+          return h.response({
+            status: "fail",
+            message: "File harus berupa gambar PNG atau JPEG.",
+          }).code(400);
+        }
+
+        const uniqueFilename = `${nanoid()}.${mime.extension(mimeType)}`;
+        console.log('test3 ' + uniqueFilename);
+        const filePath = path.join("uploads/", uniqueFilename);
+        const writeStream = fs.createWriteStream(filePath);
+
+        // Simpan konten file ke dalam file yang dituju
+        await new Promise((resolve, reject) => {
+          file.pipe(writeStream);
+
+          file.on("end", () => {
+            writeStream.end();
+            resolve();
+          });
+
+          writeStream.on("error", (error) => {
+            reject(error);
+          });
+        });
+      // end untuk upload file
+
       const {
         nm_proyek,
         id_kategori,
@@ -173,6 +217,7 @@ const projectHandler = {
         nm_proyek,
         id_kategori,
         deskripsi,
+        gambar: uniqueFilename,
         tanggal_mulai,
         tanggal_selesai,
       });
@@ -185,6 +230,7 @@ const projectHandler = {
       response.code(201);
       return response;
     } catch (error) {
+      console.log(error);
       const response = h.response({
         status: "fail",
         message: "Gagal membuat project",
@@ -200,6 +246,17 @@ const projectHandler = {
 
       const { id_proyek } = request.params;
       const getUsernameLogin = request.auth.username;
+
+      const project = await Project.findOne({
+        where: {
+          creator: getUsernameLogin,
+          id_proyek: id_proyek,
+        },
+      });
+      const filePath = path.join("uploads/", project.gambar);
+
+      // Hapus file terkait
+      fs.unlinkSync(filePath);
 
       const deletedProject = await Project.destroy({
         where: {
