@@ -1,5 +1,6 @@
 const { projectHandler } = require("../handlers/projectHandler");
 const Joi = require("@hapi/joi");
+const uploadMiddleware = require('../config/middleware/uploadMiddleware');
 
 const projectRoutes = [
   {
@@ -11,11 +12,12 @@ const projectRoutes = [
         strategy: "jwt",
       },
     },
+    
   },
   {
     method: "GET",
     path: "/proyek/kategori/{kategori}",
-    handler: projectHandler.getAllProjectByCategory,
+    handler: projectHandler.getAllProjectsByCategory,
     options: {
       auth: {
         strategy: "jwt",
@@ -55,11 +57,19 @@ const projectRoutes = [
       auth: {
         strategy: "jwt",
       },
+      payload: {
+        output: "stream",
+        parse: true,
+        multipart: true,
+        allow: "multipart/form-data",
+        maxBytes: 2 * 1024 * 1024,
+      },
       validate: {
         payload: Joi.object({
           nm_proyek: Joi.string().required(),
           id_kategori: Joi.number().required(),
           deskripsi: Joi.string().required(),
+          file: Joi.optional(),
           tanggal_mulai: Joi.date().required(),
           tanggal_selesai: Joi.date().required(),
         }),
