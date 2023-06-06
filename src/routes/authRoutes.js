@@ -1,5 +1,5 @@
 const { authHandler } = require("../handlers/authHandler");
-const Joi = require("@hapi/joi");
+const Joi = require("joi");
 
 const authRoutes = [
   {

@@ -1,6 +1,6 @@
 const { projectHandler } = require("../handlers/projectHandler");
-const Joi = require("@hapi/joi");
-const uploadMiddleware = require('../config/middleware/uploadMiddleware');
+const Joi = require("joi");
+const uploadMiddleware = require("../config/middleware/uploadMiddleware");
 
 const projectRoutes = [
   {
@@ -12,7 +12,6 @@ const projectRoutes = [
         strategy: "jwt",
       },
     },
-    
   },
   {
     method: "GET",

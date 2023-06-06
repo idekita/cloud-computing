@@ -1,5 +1,5 @@
 const { contributorHandler } = require("../handlers/contributorHandler");
-const Joi = require("@hapi/joi");
+const Joi = require("joi");
 
 const contributorRoutes = [
   {

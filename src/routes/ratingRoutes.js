@@ -1,5 +1,5 @@
 const { ratingHandler } = require("../handlers/ratingHandler");
-const Joi = require("@hapi/joi");
+const Joi = require("joi");
 
 const ratingRoutes = [
   {
