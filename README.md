@@ -146,6 +146,8 @@
   - `id_kategori` as `int`
   - `tanggal_mulai` as `date`
   - `tanggal_selesai` as `string`
+  - `file` as `file`, must be a valid image file, max size 2mb
+  
 - **Response:**
   ```JSON
   {
@@ -161,6 +163,7 @@
         "nm_proyek": "Platform E-Learning",
         "id_kategori": 1,
         "deskripsi": "ini adalah aplikasi elearning ruangbelajar",
+        "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
         "tanggal_mulai": "2023-05-29T00:00:00.000Z",
         "tanggal_selesai": "2023-07-29T00:00:00.000Z"
     }
