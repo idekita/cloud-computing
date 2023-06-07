@@ -29,6 +29,10 @@ const projectHandler = {
         order: [["tanggal_mulai", "DESC"]],
       });
 
+      projects.forEach((project) => {
+        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+      });
+
       const response = h.response({
         status: "success",
         message: "Daftar Project berhasil ditemukan",
