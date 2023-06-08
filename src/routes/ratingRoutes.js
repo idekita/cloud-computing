@@ -1,5 +1,5 @@
 const { ratingHandler } = require("../handlers/ratingHandler");
-const Joi = require("joi");
+const Joi = require("@hapi/joi");
 
 const ratingRoutes = [
   {
@@ -23,6 +23,21 @@ const ratingRoutes = [
       validate: {
         payload: Joi.object({
           id_proyek: Joi.number().required(),
+          nilai: Joi.number().integer().min(1).max(5).required(),
+        }),
+      },
+    },
+  },
+  {
+    method: "PUT",
+    path: "/rating/{id_rating}",
+    handler: ratingHandler.updateRating,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+      validate: {
+        payload: Joi.object({
           nilai: Joi.number().integer().min(1).max(5).required(),
         }),
       },

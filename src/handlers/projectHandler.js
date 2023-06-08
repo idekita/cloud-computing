@@ -6,11 +6,6 @@ const fs = require("fs");
 const path = require("path");
 const mime = require("mime-types");
 const { nanoid } = require("nanoid");
-const { Storage } = require("@google-cloud/storage");
-
-const storage = new Storage();
-const bucketName = "project-img";
-const bucket = storage.bucket(bucketName);
 
 const projectHandler = {
   getAllProjects: async (request, h) => {
@@ -27,10 +22,6 @@ const projectHandler = {
           },
         ],
         order: [["tanggal_mulai", "DESC"]],
-      });
-
-      projects.forEach((project) => {
-        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
       });
 
       const response = h.response({
@@ -172,51 +163,45 @@ const projectHandler = {
     try {
       await authenticateToken(request, h);
       const getUsernameLogin = request.auth.username;
-
+      console.log(getUsernameLogin);
       const { file } = request.payload;
 
-      if (!file) {
-        return h
-          .response({
-            status: "fail",
-            message: "File tidak ditemukan.",
-          })
-          .code(400);
-      }
+        if (!file) {
+          return h
+            .response({
+              status: "fail",
+              message: "File tidak ditemukan.",
+            })
+            .code(400);
+        }
 
-      const mimeType = mime.lookup(file.hapi.filename);
-      console.log(mimeType);
-      if (mimeType !== "image/png" && mimeType !== "image/jpeg") {
-        return h
-          .response({
+        const mimeType = mime.lookup(file.hapi.filename);
+        console.log(mimeType);
+        if (mimeType !== "image/png" && mimeType !== "image/jpeg") {
+          return h.response({
             status: "fail",
             message: "File harus berupa gambar PNG atau JPEG.",
-          })
-          .code(400);
-      }
+          }).code(400);
+        }
 
-      const uniqueFilename = `${nanoid()}.${mime.extension(mimeType)}`;
-      // Upload file ke Google Cloud Storage
-      const uploadPath = uniqueFilename;
-      const blob = bucket.file(uploadPath);
+        const uniqueFilename = `${nanoid()}.${mime.extension(mimeType)}`;
+        console.log('test3 ' + uniqueFilename);
+        const filePath = path.join("uploads/", uniqueFilename);
+        const writeStream = fs.createWriteStream(filePath);
 
-      await new Promise((resolve, reject) => {
-        const blobStream = blob.createWriteStream({
-          resumable: false,
-          contentType: file.hapi.headers["content-type"],
+        // Simpan konten file ke dalam file yang dituju
+        await new Promise((resolve, reject) => {
+          file.pipe(writeStream);
+
+          file.on("end", () => {
+            writeStream.end();
+            resolve();
+          });
+
+          writeStream.on("error", (error) => {
+            reject(error);
+          });
         });
-
-        file.pipe(blobStream);
-
-        blobStream.on("finish", () => {
-          console.log("File berhasil diunggah ke Google Cloud Storage.");
-          resolve();
-        });
-
-        blobStream.on("error", (error) => {
-          reject(error);
-        });
-      });
       // end untuk upload file
 
       const {
@@ -268,11 +253,10 @@ const projectHandler = {
           id_proyek: id_proyek,
         },
       });
+      const filePath = path.join("uploads/", project.gambar);
 
-      // Hapus gambar dari cloud storage
-      const fileName = project.gambar;
-      const file = storage.bucket(bucketName).file(fileName);
-      await file.delete();
+      // Hapus file terkait
+      fs.unlinkSync(filePath);
 
       const deletedProject = await Project.destroy({
         where: {
@@ -305,6 +289,73 @@ const projectHandler = {
       return response;
     }
   },
+
+  updateStatusProject: async (request, h) => {
+    try {
+      await authenticateToken(request, h);
+
+      const { id_proyek } = request.params;
+      const { status } = request.payload;
+      const getUsernameLogin = request.auth.username;
+
+      // Dapatkan project berdasarkan id_proyek
+      const project = await Project.findOne({
+        where: { id_proyek },
+      });
+
+      if (!project) {
+        const response = h.response({
+          status: "fail",
+          message: "Project tidak ditemukan",
+        });
+        response.code(404);
+        return response;
+      }
+
+      // Periksa apakah pengguna yang melakukan permintaan adalah pembuat proyek yang sesuai
+      if (project.creator !== getUsernameLogin) {
+        const response = h.response({
+          status: "fail",
+          message: "Anda tidak memiliki izin untuk mengubah status proyek",
+        });
+        response.code(403);
+        return response;
+      }
+
+      // Menggunakan metode update pada model Project untuk mengubah field status
+      const updatedProject = await Project.update(
+        { status: status },
+        { where: { id_proyek } }
+      );
+
+      if (updatedProject[0] === 1) {
+
+        // Jika ada satu kontributor yang berhasil diubah
+        const response = h.response({
+          status: "success",
+          message: "Berhasil merubah status proyek",
+        });
+        response.code(200);
+        return response;
+      } else {
+        // Jika tidak ada kontributor yang diubah atau kondisi tidak cocok
+        const response = h.response({
+          status: "fail",
+          message: "Tidak ada perubahan",
+        });
+        response.code(404);
+        return response;
+      }
+    } catch (error) {
+      console.log(error);
+      const response = h.response({
+        status: "error",
+        message: "Terjadi kesalahan server",
+      });
+      response.code(500);
+      return response;
+    }
+  }
 };
 
 module.exports = {
