@@ -1,6 +1,5 @@
 const { projectHandler } = require("../handlers/projectHandler");
-const Joi = require("joi");
-const uploadMiddleware = require("../config/middleware/uploadMiddleware");
+const Joi = require("@hapi/joi");
 
 const projectRoutes = [
   {
@@ -72,6 +71,16 @@ const projectRoutes = [
           tanggal_mulai: Joi.date().required(),
           tanggal_selesai: Joi.date().required(),
         }),
+      },
+    },
+  },
+  {
+    method: "PUT",
+    path: "/proyek/{id_proyek}",
+    handler: projectHandler.updateStatusProject,
+    options: {
+      auth: {
+        strategy: "jwt",
       },
     },
   },

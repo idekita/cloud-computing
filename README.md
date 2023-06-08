@@ -191,6 +191,7 @@
             "nm_proyek": "Platform Mengumpulkan Ide",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
             "tanggal_mulai": "2023-05-23",
             "tanggal_selesai": "2023-08-24",
             "status": "terbuka",
@@ -207,6 +208,7 @@
             "nm_proyek": "Platform Crowdsourcing untu Masyarakat Jawa",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
             "tanggal_mulai": "2023-05-22",
             "tanggal_selesai": "2023-08-22",
             "status": "selesai",
@@ -244,6 +246,7 @@
             "nm_proyek": "Platform E-Learning",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi elearning ruangbelajar",
+            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
             "tanggal_mulai": "2023-05-29",
             "tanggal_selesai": "2023-07-29",
             "status": "terbuka",
@@ -281,6 +284,7 @@
             "nm_proyek": "Platform Crowdsourcing untuk Masyarakat",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
             "tanggal_mulai": "2023-05-22",
             "tanggal_selesai": "2023-08-22",
             "status": "selesai",
@@ -294,6 +298,7 @@
             "nm_proyek": "Platform Mengumpulkan Ide",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
             "tanggal_mulai": "2023-05-23",
             "tanggal_selesai": "2023-08-24",
             "status": "terbuka",
@@ -327,6 +332,7 @@
             "nm_proyek": "Platform Mengumpulkan Ide",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
+            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
             "tanggal_mulai": "2023-05-23",
             "tanggal_selesai": "2023-08-24",
             "status": "berlangsung",
@@ -349,6 +355,49 @@
     ]
   }
   ```
+  
+### 6. Update Project Status
+- **URL:** 
+  - `/proyek/:id_proyek`
+- **Method:** 
+  - `PUT`
+- **Description:** 
+  - to change the project status 
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+  
+- **Parameters:**
+  - `id_proyek` as `int`, required
+
+- **Request Body:**
+  - `status` as `enum` ['terbuka'(default), 'berlangsung', 'selesai'], required
+
+- Response:
+  ```JSON
+    {
+    "status": "success",
+    "message": "Berhasil merubah status proyek"
+    }
+  ```
+  
+### 7. Delete Project
+- **URL:** 
+  - `/proyek/:id_proyek`
+- **Method:** 
+  - `DELETE`
+- **Description:** 
+  - to delete a project
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+- **Parameters:**
+  - `id_proyek` as `int`, required
+- **Response:**
+  ```JSON
+    {
+    "status": "success",
+    "message": "Proyek berhasil dihapus"
+    }
+  ```  
 
 ## Contribution Endpoint
 ### 1. Register Contribute
@@ -504,3 +553,33 @@
     }
   }
   ```
+  
+### 2. Update Rating
+- **URL:** 
+  - `/rating/:id_rating`
+- **Method:** 
+  - `POST`
+- **Description:** 
+  - to update a rating
+- **Header:**
+  - `Authorization`: `Bearer {token}`
+- **Parameters:**
+  - `id_rating` as `int`, required
+- **Request Body:**
+  - id_proyek as int, required
+  - password as int (1 - 5), required
+
+- **Response:**
+  ```JSON
+  {
+    "status": "success",
+    "message": "Berhasil melakukan rating",
+    "rating": {
+        "id": 7,
+        "id_proyek": 2,
+        "username": "user",
+        "nilai": 4
+    }
+  }
+  ```
+
