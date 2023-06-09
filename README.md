@@ -18,20 +18,22 @@
   - `username` as `string`, must be unique
   - `password` as `string`
   - `name` as `string`
-  - `email` as `string`
+  - `email` as `string`, must be email type
+  - `pref_categories` as `string`
 
 - **Response:**
   ```JSON
-  {
-    "status": "success",
-    "message": "Registrasi berhasil",
-    "user": {
-    "id": 4,
-    "username": "user",
-    "password": "$2b$10$2ZS4DPxagGU./Nr2IlsNR.p7SwYq8FFvicxxOqui2tY7tKmgtG/.W",
-    "name": "User Baru",
-    "email": "user@gmail.com"
-    }
+   {
+      "status": "success",
+      "message": "Registrasi berhasil",
+      "user": {
+          "id": 13,
+          "username": "aa",
+          "password": "$2b$10$w3q9AiuEfVdjLb90FvJDo.ycm1BhRryekzFqqpeGlqc7TUOwZNF4G",
+          "name": "Huruf A",
+          "email": "aaaa@gmail.com",
+          "pref_categories": "Politik | Sosial"
+      }
   }
   ```
 
@@ -54,9 +56,9 @@
     "user": {
     "username": "user",
     "name": "User Baru",
-    "email": "user@gmail.com"
-    },
+    "email": "user@gmail.com",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE2ODU0MDgxMTYsImV4cCI6MTY4NTQxMTcxNn0.eRwhWf2DgSOgc-W4HeY1tbjyrOa82M24zowUsMs9aZQ"
+    },
   }
   ```
 
@@ -148,7 +150,7 @@
   - `username` as `string`, must be unique
   - `id_kategori` as `int`
   - `tanggal_mulai` as `date`
-  - `tanggal_selesai` as `string`
+  - `tanggal_selesai` as `date`
   - `file` as `file`, must be a valid image file, max size 2mb
   
 - **Response:**
@@ -166,7 +168,7 @@
         "nm_proyek": "Platform E-Learning",
         "id_kategori": 1,
         "deskripsi": "ini adalah aplikasi elearning ruangbelajar",
-        "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
+        "gambar": "https://storage.googleapis.com/project-img/3iribYxloRspFA-jNa-Mi.jpeg",
         "tanggal_mulai": "2023-05-29T00:00:00.000Z",
         "tanggal_selesai": "2023-07-29T00:00:00.000Z"
     }
@@ -189,29 +191,12 @@
     "message": "Daftar Project berhasil ditemukan",
     "projects": [
         {
-            "id": 2,
-            "creator": "deo",
-            "nm_proyek": "Platform Mengumpulkan Ide",
-            "id_kategori": 1,
-            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
-            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
-            "tanggal_mulai": "2023-05-23",
-            "tanggal_selesai": "2023-08-24",
-            "status": "terbuka",
-            "total_rate": 4,
-            "jumlah_raters": 1,
-            "mean_rate": 4,
-            "category": {
-                "nm_kategori": "Sosial"
-            }
-        },
-        {
             "id": 1,
             "creator": "deo",
             "nm_proyek": "Platform Crowdsourcing untu Masyarakat Jawa",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
-            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
+            "gambar": "https://storage.googleapis.com/project-img/3iribYxloRspFA-jNa-Mi.jpeg",
             "tanggal_mulai": "2023-05-22",
             "tanggal_selesai": "2023-08-22",
             "status": "selesai",
@@ -249,7 +234,7 @@
             "nm_proyek": "Platform E-Learning",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi elearning ruangbelajar",
-            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
+            "gambar": "https://storage.googleapis.com/project-img/3iribYxloRspFA-jNa-Mi.jpeg",
             "tanggal_mulai": "2023-05-29",
             "tanggal_selesai": "2023-07-29",
             "status": "terbuka",
@@ -287,7 +272,7 @@
             "nm_proyek": "Platform Crowdsourcing untuk Masyarakat",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
-            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
+            "gambar": "https://storage.googleapis.com/project-img/3iribYxloRspFA-jNa-Mi.jpeg",
             "tanggal_mulai": "2023-05-22",
             "tanggal_selesai": "2023-08-22",
             "status": "selesai",
@@ -295,20 +280,6 @@
             "jumlah_raters": 3,
             "mean_rate": 4
         },
-        {
-            "id": 2,
-            "creator": "deo",
-            "nm_proyek": "Platform Mengumpulkan Ide",
-            "id_kategori": 1,
-            "deskripsi": "ini adalah aplikasi mirip idekita hehe",
-            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
-            "tanggal_mulai": "2023-05-23",
-            "tanggal_selesai": "2023-08-24",
-            "status": "terbuka",
-            "total_rate": 4,
-            "jumlah_raters": 1,
-            "mean_rate": 4
-        }
     ]
   }
   ```
@@ -335,7 +306,7 @@
             "nm_proyek": "Platform Mengumpulkan Ide",
             "id_kategori": 1,
             "deskripsi": "ini adalah aplikasi mirip idekita hehe",
-            "gambar": "LV60Ui1ndSLAOw1q3tTnU.png",
+            "gambar": "https://storage.googleapis.com/project-img/3iribYxloRspFA-jNa-Mi.jpeg",
             "tanggal_mulai": "2023-05-23",
             "tanggal_selesai": "2023-08-24",
             "status": "berlangsung",
@@ -374,6 +345,11 @@
 
 - **Request Body:**
   - `status` as `enum` ['terbuka'(default), 'berlangsung', 'selesai'], required
+  - `nm_proyek` as `string`, optional
+  - `deskripsi` as `string`, optional
+  - `tanggal_mulai` as `date`, optional
+  - `tanggal_selesai` as `date`, optional
+  - `file` as `file`, optional, must be a valid image file, max size 2mb
 
 - Response:
   ```JSON
