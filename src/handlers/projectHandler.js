@@ -333,7 +333,7 @@ const projectHandler = {
       await authenticateToken(request, h);
 
       const { id_proyek } = request.params;
-      const { tanggal_mulai, tanggal_selesai, deskripsi, status } =
+      const { tanggal_mulai, tanggal_selesai, deskripsi, status, nm_proyek } =
         request.payload;
       const getUsernameLogin = request.auth.username;
 
@@ -370,6 +370,9 @@ const projectHandler = {
       }
       if (status !== undefined) {
         updatedValues.status = status;
+      }
+      if (nm_proyek !== undefined) {
+        updatedValues.nm_proyek = nm_proyek;
       }
 
       // Periksa dan atur gambar jika ada
