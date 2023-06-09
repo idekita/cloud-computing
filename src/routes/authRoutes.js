@@ -3,8 +3,19 @@ const Joi = require("joi");
 
 const authRoutes = [
   {
+    method: "GET",
+    path: "/",
+    handler: (request, h) => {
+      const message = "Anda harus Login!";
+      return h.response({ message });
+    },
+    options: {
+      auth: false,
+    },
+  },
+  {
     method: "POST",
-    path: ["/", "/login"],
+    path: "/login",
     handler: authHandler.login,
     options: {
       validate: {
