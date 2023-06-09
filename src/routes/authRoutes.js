@@ -38,6 +38,7 @@ const authRoutes = [
           password: Joi.string().required(),
           name: Joi.string().required(),
           email: Joi.string().email().required(),
+          pref_categories: Joi.string().required(),
         }),
       },
       auth: false,
