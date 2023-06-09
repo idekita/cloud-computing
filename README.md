@@ -1,7 +1,9 @@
 # API Endpoints Documentation
 
 ### Endpoint
--sedang dalam pengerjaan
+- `https://idekita-ttdc4jg2wq-et.a.run.app`, may be replaced
+- [3. Project Endpoint](#project)
+
 
 ## Auth and User Endpoint
 
@@ -131,7 +133,7 @@
   }
   ```
 
-## Project Endpoint
+## Project Endpoint {#project}
 ### 1. Create Project
 - **URL:** 
   - `/proyek`
