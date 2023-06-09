@@ -34,11 +34,11 @@ const Rating = sequelize.define(
       defaultValue: 0,
     },
   },
-  {
-    timestamps: false, // menonaktifkan fitur timestamps
-  }
+  // {
+  //   timestamps: true, 
+  // }
 );
 
 Rating.belongsTo(Project, { foreignKey: "id_proyek" });
-Rating.belongsTo(User, { foreignKey: "username" });
+Rating.belongsTo(User, { foreignKey: "username", targetKey: "username" });
 module.exports = Rating;

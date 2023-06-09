@@ -69,6 +69,10 @@ const Project = sequelize.define(
       allowNull: false,
       defaultValue: 0,
     },
+    postedAt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     timestamps: false, // menonaktifkan fitur timestamps

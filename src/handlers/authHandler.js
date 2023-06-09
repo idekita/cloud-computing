@@ -10,13 +10,15 @@ const saltRounds = 10;
 const authHandler = {
   login: async (request, h) => {
     const { username, password } = request.payload;
-
+    console.log("dd");
     // Cari pengguna berdasarkan username
     const user = await User.findOne({
       where: {
-        username: username, // kondisi pencarian berdasarkan username
+        username: username,
       },
     });
+
+    console.log("ss");
 
     if (user) {
       // Periksa kecocokan password
@@ -24,11 +26,10 @@ const authHandler = {
 
       if (match) {
         // Buat token JWT
-        const token = Jwt.sign(
-          { username: user.username },
-          secretKey,
-          { expiresIn: "1h" } // Durasi token berlaku
-        );
+        const token = Jwt.sign({ username: user.username }, secretKey, {
+          expiresIn: "3h",
+        });
+        console.log(token);
 
         const currentDate = new Date();
         const utcOffset = 420; // Offset waktu Indonesia (UTC+7) dalam menit
@@ -47,8 +48,8 @@ const authHandler = {
             username: user.username,
             name: user.name,
             email: user.email,
+            token: token,
           },
-          token: token,
         });
         response.code(200);
         return response;

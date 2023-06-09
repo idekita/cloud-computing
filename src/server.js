@@ -1,5 +1,6 @@
 const Hapi = require("@hapi/hapi");
 const routes = require("./routes/route");
+
 const {
   authenticate,
   authorizeMiddleware,
@@ -9,7 +10,6 @@ const HapiJwt = require("hapi-auth-jwt2");
 const init = async () => {
   const server = Hapi.server({
     port: 8000,
-    host: "localhost",
   });
 
   // Registrasi plugin hapi-auth-jwt2

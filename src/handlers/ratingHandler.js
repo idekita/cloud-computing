@@ -3,7 +3,6 @@ const { authenticateToken } = require("../config/middleware/authMiddleware");
 const Project = require("../models/Project");
 const User = require("../models/User");
 const sequelize = require("sequelize");
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const ratingHandler = {
   getAllRatings: async (request, h) => {
@@ -118,7 +117,7 @@ const ratingHandler = {
       const existingRating = await Rating.findOne({
         where: { id_rating, username: getUsernameLogin },
       });
-    
+
       if (!existingRating) {
         const response = h.response({
           status: "fail",
@@ -130,10 +129,10 @@ const ratingHandler = {
 
       // mengubah nilai rating
       const updateProject = await Rating.update(
-        { nilai: nilai},
+        { nilai: nilai },
         { where: { id_rating } }
       );
-      
+
       const id_proyek = existingRating.id_proyek;
 
       const project = await Project.findOne({ where: { id_proyek } });
@@ -144,7 +143,7 @@ const ratingHandler = {
       const newRataRata = parseFloat(
         (newTotalNilai / newJumlahRaters).toFixed(1)
       );
-      
+
       // update nilai rating di proyek
       await Project.update(
         {
@@ -170,7 +169,7 @@ const ratingHandler = {
       response.code(500);
       return response;
     }
-   }
+  },
 };
 
 module.exports = {

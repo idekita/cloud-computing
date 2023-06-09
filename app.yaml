@@ -1,2 +1,5 @@
 runtime: nodejs16
 service: default
+
+env_variables:
+  APP_PORT: 8000

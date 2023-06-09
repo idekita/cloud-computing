@@ -1,5 +1,5 @@
 const { projectHandler } = require("../handlers/projectHandler");
-const Joi = require("@hapi/joi");
+const Joi = require("joi");
 
 const projectRoutes = [
   {
