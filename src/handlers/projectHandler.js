@@ -8,7 +8,14 @@ const mime = require("mime-types");
 const { nanoid } = require("nanoid");
 const { Storage } = require("@google-cloud/storage");
 
-const storage = new Storage();
+// const storage = new Storage();
+const storage = new Storage({
+  projectId: "submission-mgce-dhillen",
+  keyFilename: path.join(
+    __dirname,
+    "../../submission-mgce-dhillen-cb4aed65d427.json"
+  ),
+});
 const bucketName = "project-img";
 const bucket = storage.bucket(bucketName);
 
@@ -217,6 +224,8 @@ const projectHandler = {
 
       // end untuk upload file
 
+      const postedAt = new Date().toISOString();
+
       const {
         nm_proyek,
         id_kategori,
@@ -233,6 +242,7 @@ const projectHandler = {
         gambar: uniqueFilename,
         tanggal_mulai,
         tanggal_selesai,
+        postedAt: postedAt,
       });
 
       const response = h.response({
@@ -276,10 +286,13 @@ const projectHandler = {
         return response;
       }
 
-      const filePath = path.join("uploads/", project.gambar);
+      const fileName = project.gambar;
       // Hapus file terkait
       if (project.gambar !== "default.jpg") {
-        fs.unlinkSync(filePath);
+        const file = bucket.file(fileName);
+
+        // Hapus file gambar lama
+        await file.delete();
       }
 
       const deletedProject = await Project.destroy({
@@ -320,7 +333,8 @@ const projectHandler = {
       await authenticateToken(request, h);
 
       const { id_proyek } = request.params;
-      const { status } = request.payload;
+      const { tanggal_mulai, tanggal_selesai, deskripsi, status, nm_proyek } =
+        request.payload;
       const getUsernameLogin = request.auth.username;
 
       // Dapatkan project berdasarkan id_proyek
@@ -341,22 +355,93 @@ const projectHandler = {
         return response;
       }
 
-      // Menggunakan metode update pada model Project untuk mengubah field status
-      const updatedProject = await Project.update(
-        { status: status },
-        { where: { id_proyek } }
-      );
+      // Objek untuk nilai yang diupdate
+      const updatedValues = {};
 
-      if (updatedProject[0] === 1) {
-        // Jika ada satu kontributor yang berhasil diubah
+      // Periksa dan atur nilai untuk setiap kolom opsional
+      if (tanggal_mulai !== undefined) {
+        updatedValues.tanggal_mulai = tanggal_mulai;
+      }
+      if (tanggal_selesai !== undefined) {
+        updatedValues.tanggal_selesai = tanggal_selesai;
+      }
+      if (deskripsi !== undefined) {
+        updatedValues.deskripsi = deskripsi;
+      }
+      if (status !== undefined) {
+        updatedValues.status = status;
+      }
+      if (nm_proyek !== undefined) {
+        updatedValues.nm_proyek = nm_proyek;
+      }
+
+      // Periksa dan atur gambar jika ada
+      if (request.payload.file) {
+        const { file } = request.payload;
+
+        const mimeType = mime.lookup(file.hapi.filename);
+        console.log(mimeType);
+        if (mimeType !== "image/png" && mimeType !== "image/jpeg") {
+          return h
+            .response({
+              status: "fail",
+              message: "File harus berupa gambar PNG atau JPEG.",
+            })
+            .code(400);
+        }
+        console.log("test1");
+        // Upload file ke Google Cloud Storage
+        const uniqueFilename = `${nanoid()}.${mime.extension(mimeType)}`;
+
+        // Upload file ke Google Cloud Storage
+        const uploadPath = uniqueFilename;
+        const blob = bucket.file(uploadPath);
+
+        await new Promise((resolve, reject) => {
+          const blobStream = blob.createWriteStream({
+            resumable: false,
+            contentType: file.hapi.headers["content-type"],
+          });
+
+          file.pipe(blobStream);
+
+          blobStream.on("finish", () => {
+            console.log("File berhasil diunggah ke Google Cloud Storage.");
+            resolve();
+          });
+
+          blobStream.on("error", (error) => {
+            reject(error);
+          });
+        });
+
+        // end untuk upload file
+      }
+
+      // ini menghapus gambar
+      const oldFileName = project.gambar;
+
+      if (project.gambar !== "default.jpg") {
+        const file = bucket.file(oldFileName);
+
+        await file.delete();
+      }
+
+      // Menggunakan metode update pada model Project untuk mengubah proyek
+      const [updatedCount] = await Project.update(updatedValues, {
+        where: { id_proyek },
+      });
+
+      if (updatedCount > 0) {
+        // Jika ada proyek yang berhasil diubah
         const response = h.response({
           status: "success",
-          message: "Berhasil merubah status proyek",
+          message: "Berhasil merubah proyek",
         });
         response.code(200);
         return response;
       } else {
-        // Jika tidak ada kontributor yang diubah atau kondisi tidak cocok
+        // Jika tidak ada data yang diubah atau kondisi tidak cocok
         const response = h.response({
           status: "fail",
           message: "Tidak ada perubahan",
