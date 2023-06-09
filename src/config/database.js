@@ -1,8 +1,8 @@
 const { Sequelize } = require("sequelize");
 
 // Konfigurasi koneksi ke database
-const sequelize = new Sequelize("idekita", "root", "", {
-  host: "localhost",
+const sequelize = new Sequelize("idekita", "root", "idekita", {
+  host: "34.101.209.92",
   dialect: "mysql",
 });
 

@@ -4,7 +4,7 @@ const Joi = require("joi");
 const authRoutes = [
   {
     method: "POST",
-    path: "/login",
+    path: ["/", "/login"],
     handler: authHandler.login,
     options: {
       validate: {
