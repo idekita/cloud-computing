@@ -2,7 +2,7 @@
 
 ### Endpoint
 `https://idekita-ttdc4jg2wq-et.a.run.app`, may be replaced
-- [3. Project Endpoint](#project)
+- [Project Endpoint](#project)
 
 
 ## Auth and User Endpoint
@@ -133,7 +133,7 @@
   }
   ```
 
-## Project Endpoint {#project}
+## Project Endpoint
 ### 1. Create Project
 - **URL:** 
   - `/proyek`
