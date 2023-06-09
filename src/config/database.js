@@ -2,21 +2,19 @@ const { Sequelize } = require("sequelize");
 
 // Konfigurasi koneksi ke database
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
+  process.env.DB_NAME || "idekita",
+  process.env.DB_USERNAME || "root",
+  process.env.DB_PASSWORD || "idekita",
   {
-    host: process.env.DB_HOST,
+    host: process.env.DB_HOST || "34.101.209.92",
     dialect: "mysql",
   }
 );
 
+// buat lokal
 // const sequelize = new Sequelize("idekita", "root", "idekita", {
-//   host: "/cloudsql/submission-mgce-dhillen:asia-southeast2:idekita",
+//   host: "34.101.209.92",
 //   dialect: "mysql",
-//   dialectOptions: {
-//     socketPath: "/cloudsql/submission-mgce-dhillen:asia-southeast2:idekita",
-//   },
 // });
 
 // Tes koneksi ke database

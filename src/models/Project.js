@@ -70,8 +70,9 @@ const Project = sequelize.define(
       defaultValue: 0,
     },
     postedAt: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: sequelize.NOW,
     },
   },
   {

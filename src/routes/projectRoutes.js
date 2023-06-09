@@ -82,6 +82,13 @@ const projectRoutes = [
       auth: {
         strategy: "jwt",
       },
+      payload: {
+        output: "stream",
+        parse: true,
+        multipart: true,
+        allow: "multipart/form-data",
+        maxBytes: 2 * 1024 * 1024,
+      },
     },
   },
   {
