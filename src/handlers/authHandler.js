@@ -62,7 +62,8 @@ const authHandler = {
 
   register: async (request, h) => {
     try {
-      const { username, password, name, email } = request.payload;
+      const { username, password, name, email, pref_categories } =
+        request.payload;
 
       // // Hash password sebelum disimpan
       const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -75,6 +76,7 @@ const authHandler = {
         password: hashedPassword,
         name,
         email,
+        pref_categories,
       });
 
       const response = h.response({

@@ -36,6 +36,10 @@ const projectHandler = {
         order: [["tanggal_mulai", "DESC"]],
       });
 
+      projects.forEach((project) => {
+        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+      });
+
       const response = h.response({
         status: "success",
         message: "Daftar Project berhasil ditemukan",
@@ -70,6 +74,10 @@ const projectHandler = {
             attributes: ["nm_kategori"],
           },
         ],
+      });
+
+      projects.forEach((project) => {
+        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
       });
 
       const response = h.response({
@@ -108,6 +116,10 @@ const projectHandler = {
             attributes: ["nm_kategori"],
           },
         ],
+      });
+
+      projects.forEach((project) => {
+        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
       });
 
       const response = h.response({
@@ -152,7 +164,9 @@ const projectHandler = {
           },
         ],
       });
-      console.log("s" + projects);
+      projects.forEach((project) => {
+        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+      });
       const response = h.response({
         status: "success",
         message: "Daftar Project berhasil ditemukan",
