@@ -7,6 +7,7 @@ const path = require("path");
 const mime = require("mime-types");
 const { nanoid } = require("nanoid");
 const { Storage } = require("@google-cloud/storage");
+const { Sequelize } = require("sequelize");
 
 // const storage = new Storage();
 const storage = new Storage({
@@ -468,6 +469,46 @@ const projectHandler = {
       const response = h.response({
         status: "error",
         message: "Terjadi kesalahan server",
+      });
+      response.code(500);
+      return response;
+    }
+  },
+
+  searchProjects: async (request, h) => {
+    const { nm_proyek } = request.params;
+    try {
+      await authenticateToken(request, h);
+
+      const projects = await Project.findAll({
+        where: {
+          nm_proyek: {
+            [Sequelize.Op.like]: `%${nm_proyek}%`,
+          },
+        },
+        include: [
+          {
+            model: Category,
+            attributes: ["nm_kategori"],
+          },
+        ],
+      });
+
+      projects.forEach((project) => {
+        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+      });
+
+      const response = h.response({
+        status: "success",
+        message: "Daftar Project berhasil ditemukan",
+        projects: projects,
+      });
+      response.code(200);
+      return response;
+    } catch (error) {
+      const response = h.response({
+        status: "fail",
+        message: "Proyek yang dicari tidak ditemukan",
       });
       response.code(500);
       return response;
