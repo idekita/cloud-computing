@@ -1,30 +1,24 @@
 steps:
   # Langkah 1: Membangun image Docker
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/ide-kita/backend-idekita:1.0", "."]
+    args: ["build", "-t", "asia.gcr.io/ide-kita/backend-idekita:1.0", "."]
 
   # Langkah 2: Mengunggah image Docker ke Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/ide-kita/backend-idekita:1.0"]
-
-  # Langkah 3: Menyimpan secret sebagai file service-account-key.json
-  - name: "gcr.io/cloud-builders/gcloud"
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-        echo "${{ secrets.SERVICE_ACCOUNT_KEY }}" > /app/ide-kita-2b3164636ede.json
-
-  # Langkah 4: Menerbitkan aplikasi ke Cloud Run
+    args: ["push", "asia.gcr.io/ide-kita/backend-idekita:1.0"]
+    
+  # Langkah 3: Menerbitkan aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       - "run"
       - "deploy"
       - "backend"
       - "--image"
-      - "gcr.io/ide-kita/backend-idekita:1.0"
+      - "asia.gcr.io/ide-kita/backend-idekita:1.0"
       - "--platform"
       - "managed"
       - "--region"
       - "asia-southeast2"
       - "--allow-unauthenticated"
+      - "--port"
+      - "8000"
