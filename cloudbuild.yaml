@@ -5,7 +5,7 @@ steps:
     args:
       - "-c"
       - |
-         gcloud secrets versions access latest --secret="SERVICE_ACCOUNT_KEY" > /workspace/ide-kita-2b3164636ede.json
+         echo "$SERVICE_ACCOUNT_KEY" > /workspace/ide-kita-2b3164636ede.json
 
         
   # Langkah 1: Membangun image Docker
