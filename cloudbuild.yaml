@@ -6,7 +6,7 @@ steps:
       - "-c"
       - |
         echo "${_SERVICE_ACCOUNT_KEY}" > /workspace/ide-kita-2b3164636ede.json
-        secretEnv: ["_SERVICE_ACCOUNT_KEY"]
+
         
   # Langkah 1: Membangun image Docker
   - name: "gcr.io/cloud-builders/docker"
