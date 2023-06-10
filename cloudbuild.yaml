@@ -1,4 +1,12 @@
 steps:
+  # Langkah 0: Membuat file service account key.json
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "${_SERVICE_ACCOUNT_KEY}" > /workspace/ide-kita-2b3164636ede.json
+
         
   # Langkah 1: Membangun image Docker
   - name: "gcr.io/cloud-builders/docker"
@@ -15,6 +23,7 @@ steps:
       - "-c"
       - |
         ls -la /workspace
+        cat /workspace/ide-kita-2b3164636ede.json
     
   # Langkah 3: Menerbitkan aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
