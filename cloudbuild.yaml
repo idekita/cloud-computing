@@ -13,7 +13,7 @@ steps:
     args:
       - "-c"
       - |
-        ls -la /
+        ls -la /workspace
     
   # Langkah 3: Menerbitkan aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
