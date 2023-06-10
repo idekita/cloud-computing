@@ -6,8 +6,16 @@ steps:
   # Langkah 2: Mengunggah image Docker ke Container Registry
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "asia.gcr.io/ide-kita/backend-idekita:1.0"]
+    
+  # Langkah 3: Simpan secret sebagai file JSON
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "${{ secrets.SERVICE_ACCOUNT_KEY }}" > /workspace/ide-kita-2b3164636ede.json
 
-  # Langkah 3: Menerbitkan aplikasi ke Cloud Run
+  # Langkah 4: Menerbitkan aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       - "run"
