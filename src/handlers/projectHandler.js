@@ -13,7 +13,7 @@ const { Sequelize } = require("sequelize");
 console.log("cek " + process.env._SERVICE_ACCOUNT_KEY);
 const storage = new Storage({
   projectId: "ide-kita",
-  keyFilename: JSON.parse(process.env._SERVICE_ACCOUNT_KEY),
+  keyFilename: path.join(__dirname, "../../ide-kita-2b3164636ede.json"),
 });
 
 const bucketName = "project-imgs";
