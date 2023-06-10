@@ -7,6 +7,14 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "asia.gcr.io/ide-kita/backend-idekita:1.0"]
     
+  # Langkah tambahan: Menampilkan isi direktori /app
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        ls -la /app
+    
   # Langkah 3: Menerbitkan aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
