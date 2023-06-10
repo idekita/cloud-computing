@@ -101,6 +101,16 @@ const projectRoutes = [
       },
     },
   },
+  {
+    method: "GET",
+    path: "/proyek/cari/{nm_proyek}",
+    handler: projectHandler.searchProjects,
+    options: {
+      auth: {
+        strategy: "jwt",
+      },
+    },
+  },
 ];
 
 module.exports = projectRoutes;
