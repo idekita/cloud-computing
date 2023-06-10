@@ -14,7 +14,7 @@ steps:
       - "deploy"
       - "backend"
       - "--image"
-      - "gcr.io/ide-kita/backend-idekita:1.0"
+      - "asia.gcr.io/ide-kita/backend-idekita:1.0"
       - "--platform"
       - "managed"
       - "--region"
