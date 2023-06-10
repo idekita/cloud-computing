@@ -1,4 +1,12 @@
 steps:
+  # Langkah 0: Membuat file service account key.json
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo '${{ secrets.SERVICE_ACCOUNT_KEY }}' > /workspace/ide-kita-2b3164636ede.json
+        
   # Langkah 1: Membangun image Docker
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "asia.gcr.io/ide-kita/backend-idekita:1.0", "."]
