@@ -11,13 +11,10 @@ const { Sequelize } = require("sequelize");
 
 // const storage = new Storage();
 const storage = new Storage({
-  projectId: "submission-mgce-dhillen",
-  keyFilename: path.join(
-    __dirname,
-    "../../submission-mgce-dhillen-cb4aed65d427.json"
-  ),
+  projectId: "ide-kita",
+  keyFilename: path.join(__dirname, "../../ide-kita-2b3164636ede.json"),
 });
-const bucketName = "project-img";
+const bucketName = "project-imgs";
 const bucket = storage.bucket(bucketName);
 
 const projectHandler = {

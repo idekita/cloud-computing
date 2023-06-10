@@ -28,16 +28,6 @@ const authHandler = {
           expiresIn: "3h",
         });
 
-        const currentDate = new Date();
-        const utcOffset = 420; // Offset waktu Indonesia (UTC+7) dalam menit
-        const indonesiaDate = new Date(
-          currentDate.getTime() + utcOffset * 60000
-        );
-
-        // Update field "last_login" dengan waktu saat ini
-        user.last_login = indonesiaDate.toISOString();
-        await user.save();
-
         const response = h.response({
           status: "success",
           message: "Login berhasil",

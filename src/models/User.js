@@ -26,10 +26,6 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    last_login: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     pref_categories: {
       type: DataTypes.STRING,
       allowNull: true,
