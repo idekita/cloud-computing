@@ -10,10 +10,12 @@ const { Storage } = require("@google-cloud/storage");
 const { Sequelize } = require("sequelize");
 
 // const storage = new Storage();
+console.log("cek " + process.env._SERVICE_ACCOUNT_KEY);
 const storage = new Storage({
   projectId: "ide-kita",
   keyFilename: path.join(__dirname, "../../ide-kita-2b3164636ede.json"),
 });
+
 const bucketName = "project-imgs";
 const bucket = storage.bucket(bucketName);
 
