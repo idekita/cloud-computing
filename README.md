@@ -24,7 +24,7 @@
 
 ## Cloud Stack
 
-[Here are the cloud architecture details](https://github.com/idekita#api)
+[Here are the cloud architecture details](https://github.com/idekita#cloud-architecture)
 
 - Cloud Build
 - Cloud Run
