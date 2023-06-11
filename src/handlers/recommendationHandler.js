@@ -11,13 +11,6 @@ const recommendationHandler = {
 
       const getUsernameLogin = request.auth.username;
 
-      //   const user = await User.findOne({
-      //     attributes: ["id_user", "username"],
-      //     where: {
-      //       username: getUsernameLogin,
-      //     },
-      //   });
-
       const recommendations = await Recommendation.findAll({
         include: [
           {
@@ -29,6 +22,11 @@ const recommendationHandler = {
           },
           {
             model: Project,
+            include: [
+              {
+                model: Category,
+              },
+            ],
           },
         ],
         order: [["id_rekomendasi", "ASC"]],

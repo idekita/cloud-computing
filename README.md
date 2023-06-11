@@ -1,20 +1,54 @@
-# API Endpoints Documentation
+# Cloud Computing Documentation
 
-### Endpoint
-`https://idekita-ttdc4jg2wq-et.a.run.app`, may be replaced
-- [Project Endpoint](#project)
+## List Documentation
 
+- [Backend Stack](#backend)
+- [Cloud Stack](#cloud)
+- [API Endpoint](#api)
+  - [Auth Endpoint](#auth-endpoint)
+  - [Category Endpoint](#category-endpoint)
+  - [Project Endpoint](#project-endpoint)
+  - [Contribution Endpoint](#contribution-endpoint)
+  - [Rating Endpoint](#rating-endpoint)
+  - [Recommendation Endpoint](#recommendation-endpoint)
+
+<a name="backend"></a>
+
+## Backend Stack
+
+- Hapi.js
+- Json Web Token (JWT)
+- MySQL
+
+<a name="cloud"></a>
+
+## Cloud Stack
+
+- Cloud Build
+- Cloud Run
+- Cloud SQL
+- Cloud Storage
+
+<a name="api"></a>
+
+## Endpoint URL
+
+`https://backend-xxsx62riha-et.a.run.app/`
+
+<a name="auth-endpoint"></a>
 
 ## Auth and User Endpoint
 
 ### 1. Register
-- **URL:** 
+
+- **URL:**
   - `/register`
-- **Method:** 
+- **Method:**
   - `POST`
-- **Description:** 
+- **Description:**
   - Register a new user.
 - **Request Body:**
+
   - `username` as `string`, must be unique
   - `password` as `string`
   - `name` as `string`
@@ -38,13 +72,15 @@
   ```
 
 ### 2. Login
-- **URL:** 
+
+- **URL:**
   - `/login`
-- **Method:** 
+- **Method:**
   - `POST`
-- **Description:** 
+- **Description:**
   - authenticate a user based on the database.
 - **Request Body:**
+
   - `username` as `string`
   - `password` as `string`
 
@@ -63,20 +99,24 @@
   ```
 
 ### 3. Profil
-- **URL:** 
+
+- **URL:**
   - `/profil/:username`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get logged in user data.
 - **Request Body:**
+
   - `username` as `string`
   - `password` as `string`
 
 - **Header:**
+
   - `Authorization`: `Bearer {token}`
 
 - **Parameters:**
+
   - `username` as `string`, required
 
 - **Response:**
@@ -94,15 +134,20 @@
   }
   ```
 
+<a name="category-endpoint"></a>
+
 ## Category Endpoint
+
 ### 1. Kategori
-- **URL:** 
+
+- **URL:**
   - `/kategori`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get all category data
 - **Header:**
+
   - `Authorization`: `Bearer {token}`
 
 - **Response:**
@@ -134,15 +179,18 @@
     ]
   }
   ```
-  
-<a name="project"></a>
+
+<a name="project-endpoint"></a>
+
 ## Project Endpoint
+
 ### 1. Create Project
-- **URL:** 
+
+- **URL:**
   - `/proyek`
-- **Method:** 
+- **Method:**
   - `POST`
-- **Description:** 
+- **Description:**
   - to create project
 - **Header:**
   - `Authorization`: `Bearer {token}`
@@ -152,7 +200,6 @@
   - `tanggal_mulai` as `date`
   - `tanggal_selesai` as `date`
   - `file` as `file`, must be a valid image file, max size 2mb
-  
 - **Response:**
   ```JSON
   {
@@ -174,13 +221,14 @@
     }
   }
   ```
-  
+
 ### 2. Get All Projects
-- **URL:** 
+
+- **URL:**
   - `/proyek`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get all created project data order by tanggal_mulai ascending
 - **Header:**
   - `Authorization`: `Bearer {token}`
@@ -212,17 +260,19 @@
   ```
 
 ### 3. Detail Project
-- **URL:** 
+
+- **URL:**
   - `/proyek/:id_proyek`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get project data by id project
 - **Header:**
   - `Authorization`: `Bearer {token}`
 - **Parameters:**
   - `id_proyek` as `int`, required
 - **Response:**
+
   ```JSON
   {
     "status": "success",
@@ -248,13 +298,14 @@
     ]
   }
   ```
-  
+
   ### 4. Get Project By Category
-- **URL:** 
+
+- **URL:**
   - `/proyek/kategori/:kategori`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get project based on category
 - **Header:**
   - `Authorization`: `Bearer {token}`
@@ -283,12 +334,14 @@
     ]
   }
   ```
+
 ### 5. Get My Project Based on Status
-- **URL:** 
+
+- **URL:**
   - `/proyek/kategori/:kategori`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get project where status is in progress or status is done
 - **Header:**
   - `Authorization`: `Bearer {token}`
@@ -329,21 +382,23 @@
     ]
   }
   ```
-  
+
 ### 6. Update Project Status
-- **URL:** 
+
+- **URL:**
   - `/proyek/:id_proyek`
-- **Method:** 
+- **Method:**
   - `PUT`
-- **Description:** 
-  - to change the project status 
+- **Description:**
+  - to change the project status
 - **Header:**
   - `Authorization`: `Bearer {token}`
-  
 - **Parameters:**
+
   - `id_proyek` as `int`, required
 
 - **Request Body:**
+
   - `status` as `enum` ['terbuka'(default), 'berlangsung', 'selesai'], required
   - `nm_proyek` as `string`, optional
   - `deskripsi` as `string`, optional
@@ -358,13 +413,14 @@
     "message": "Berhasil merubah status proyek"
     }
   ```
-  
+
 ### 7. Delete Project
-- **URL:** 
+
+- **URL:**
   - `/proyek/:id_proyek`
-- **Method:** 
+- **Method:**
   - `DELETE`
-- **Description:** 
+- **Description:**
   - to delete a project
 - **Header:**
   - `Authorization`: `Bearer {token}`
@@ -376,20 +432,69 @@
     "status": "success",
     "message": "Proyek berhasil dihapus"
     }
-  ```  
+  ```
+
+### 8. Search Project
+
+- **URL:**
+  - `/proyek/cari/:string`
+- **Method:**
+  - `GET`
+- **Description:**
+  - to get the project searched by project name
+- **Header:**
+
+  - `Authorization`: `Bearer {token}`
+
+- **Parameters:**
+
+  - `nm_proyek` as `string`, required
+
+  ```JSON
+  {
+    "status": "success",
+    "message": "Daftar Project berhasil ditemukan",
+    "projects": [
+        {
+            "id": 2,
+            "creator": "deo",
+            "nm_proyek": "Sistem Deteksi Hantu",
+            "id_kategori": 2,
+            "deskripsi": "ini deskripsi .... ya",
+            "gambar": "https://storage.googleapis.com/project-img/lRIePPgY6DDGL1Vod4AEb.png",
+            "tanggal_mulai": "2023-08-30",
+            "tanggal_selesai": "2023-09-30",
+            "status": "terbuka",
+            "total_rate": 3,
+            "jumlah_raters": 1,
+            "mean_rate": 3,
+            "postedAt": "2023-06-11",
+            "category": {
+                "nm_kategori": "Pendidikan"
+            }
+        }
+    ]
+  }
+  ```
+
+<a name="contribution-endpoint"></a>
 
 ## Contribution Endpoint
+
 ### 1. Register Contribute
-- **URL:** 
+
+- **URL:**
   - `/kontributor`
-- **Method:** 
+- **Method:**
   - `POST`
-- **Description:** 
+- **Description:**
   - to register contribute
 - **Header:**
+
   - `Authorization`: `Bearer {token}`
 
 - **Request Body:**
+
   - `id_proyek` as `int`, required
 
 - **Response:**
@@ -408,19 +513,21 @@
   ```
 
 ### 2. Change/Update Contributor Status
-- **URL:** 
+
+- **URL:**
   - `/kontributor/:id_kontributor`
-- **Method:** 
+- **Method:**
   - `PUT`
-- **Description:** 
+- **Description:**
   - to change the contributor status to accepted or not by id, to update it must be the creator project
 - **Header:**
   - `Authorization`: `Bearer {token}`
-  
 - **Parameters:**
+
   - `id_kontributor` as `int`, required
 
 - **Request Body:**
+
   - `status_lamaran` as `enum` ['menunggu'(default), 'ditolak', 'diterima'], required
   - `role` as `string`, optional
 
@@ -431,21 +538,25 @@
     "message": "Lamaran berhasil diterima!"
   }
   ```
-  
+
 ### 3. Get Contributors by Id Project
-- **URL:** 
+
+- **URL:**
   - `/kontributor/:id_proyek`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get contributor data on the project where status = diterima
 - **Header:**
+
   - `Authorization`: `Bearer {token}`
 
 - **Parameters:**
+
   - `id_proyek` as `int`, required
 
 - **Response:**
+
   ```JSON
   {
     "status": "success",
@@ -464,19 +575,21 @@
     ]
   }
   ```
-  
+
   ### 4. Get Contributors Where Status Waiting
-  
-- **URL:** 
+
+- **URL:**
   - `/kontributor/menunggu/:id_proyek`
-- **Method:** 
+- **Method:**
   - `GET`
-- **Description:** 
+- **Description:**
   - to get contributor data on the project where status = menunggu
 - **Header:**
+
   - `Authorization`: `Bearer {token}`
 
 - **Parameters:**
+
   - `id_proyek` as `int`, required
 
 - **Response:**
@@ -503,19 +616,24 @@
   }
   ```
 
+<a name="rating-endpoint"></a>
 
 ## Rating Endpoint
+
 ### 1. Create Rating
-- **URL:** 
+
+- **URL:**
   - `/rating`
-- **Method:** 
+- **Method:**
   - `POST`
-- **Description:** 
+- **Description:**
   - to do a rating
 - **Header:**
+
   - `Authorization`: `Bearer {token}`
 
 - **Request Body:**
+
   - id_proyek as int, required
   - password as int (1 - 5), required
 
@@ -532,19 +650,21 @@
     }
   }
   ```
-  
+
 ### 2. Update Rating
-- **URL:** 
+
+- **URL:**
   - `/rating/:id_rating`
-- **Method:** 
+- **Method:**
   - `POST`
-- **Description:** 
+- **Description:**
   - to update a rating
 - **Header:**
   - `Authorization`: `Bearer {token}`
 - **Parameters:**
   - `id_rating` as `int`, required
 - **Request Body:**
+
   - id_proyek as int, required
   - password as int (1 - 5), required
 
@@ -562,3 +682,57 @@
   }
   ```
 
+<a name="recommendation-endpoint"></a>
+
+## Recommendation Endpoint
+
+### 1. Get Recommendation
+
+- **URL:**
+  - `/rekomendasi`
+- **Method:**
+  - `GET`
+- **Description:**
+  - to show recommendation project
+- **Header:**
+
+  - `Authorization`: `Bearer {token}`
+
+- **Response:**
+  ```JSON
+  {
+    "status": "success",
+    "message": "Rekomendasi ditemukan",
+    "recommendations": [
+        {
+            "id": 1,
+            "id_user": 1,
+            "id_project": 2,
+            "project_title": "Sistem Deteksi Hantu",
+            "user": {
+                "id_user": 1,
+                "username": "deo"
+            },
+            "project": {
+                "id": 2,
+                "creator": "deo",
+                "nm_proyek": "Sistem Deteksi Hantu",
+                "id_kategori": 2,
+                "deskripsi": "ini deskripsi .... ya",
+                "gambar": "https://storage.googleapis.com/project-img/lRIePPgY6DDGL1Vod4AEb.png",
+                "tanggal_mulai": "2023-08-30",
+                "tanggal_selesai": "2023-09-30",
+                "status": "terbuka",
+                "total_rate": 3,
+                "jumlah_raters": 1,
+                "mean_rate": 3,
+                "postedAt": "2023-06-11",
+                "category": {
+                    "id": 2,
+                    "nm_kategori": "Pendidikan"
+                }
+            }
+        }
+    ]
+  }
+  ```
