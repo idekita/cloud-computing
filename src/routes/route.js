@@ -3,6 +3,7 @@ const categoryRoutes = require("./categoryRoutes");
 const projectRoutes = require("./projectRoutes");
 const contributorRoutes = require("./contributorRoutes");
 const ratingRoutes = require("./ratingRoutes");
+const recommendationRoutes = require("./recommendationRoutes");
 
 const routes = [
   ...authRoutes,
@@ -10,6 +11,7 @@ const routes = [
   ...projectRoutes,
   ...contributorRoutes,
   ...ratingRoutes,
+  ...recommendationRoutes,
 ];
 
 module.exports = routes;
