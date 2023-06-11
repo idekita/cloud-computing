@@ -1,6 +1,6 @@
 # Cloud Computing Documentation
 
-## List Documentation
+## List of Documentation
 
 - [Backend Stack](#backend)
 - [Cloud Stack](#cloud)
