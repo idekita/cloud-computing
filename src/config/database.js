@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
     dialect: "mysql",
   }
 );
-
+console.log(process.env._DB_NAME);
 // buat lokal
 // const sequelize = new Sequelize("idekita", "root", "idekita", {
 //   host: "34.101.209.92",
