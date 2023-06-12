@@ -2,15 +2,15 @@ const { Sequelize } = require("sequelize");
 
 // Konfigurasi koneksi ke database
 const sequelize = new Sequelize(
-  process.env._DB_NAME,
-  process.env._DB_USERNAME,
-  process.env._DB_PASSWORD,
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
   {
-    host: process.env._DB_HOST,
+    host: process.env.DB_HOST,
     dialect: "mysql",
   }
 );
-console.log(process.env._DB_NAME);
+console.log(process.env.DB_NAME);
 // buat lokal
 // const sequelize = new Sequelize("idekita", "root", "idekita", {
 //   host: "34.101.209.92",
