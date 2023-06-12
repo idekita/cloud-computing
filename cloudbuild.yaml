@@ -7,16 +7,16 @@ steps:
       - |
         echo "${_SERVICE_ACCOUNT_KEY}" > /workspace/ide-kita-2b3164636ede.json
 
-  # Langkah 1: Membangun image Docker
+  # Langkah 1: Build Docker image
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "asia.gcr.io/ide-kita/backend-idekita:1.0", "."]
-    env:
-      - "DB_NAME=${_DB_NAME}"
-      - "DB_USERNAME=${_DB_USERNAME}"
-      - "DB_PASSWORD=${_DB_PASSWORD}"
-      - "DB_HOST=${_DB_HOST}"
+    # env:
+    #   - "DB_NAME=${_DB_NAME}"
+    #   - "DB_USERNAME=${_DB_USERNAME}"
+    #   - "DB_PASSWORD=${_DB_PASSWORD}"
+    #   - "DB_HOST=${_DB_HOST}"
 
-  # Langkah 2: Mengunggah image Docker ke Container Registry
+  # Langkah 2: Push image Docker ke Container Registry
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "asia.gcr.io/ide-kita/backend-idekita:1.0"]
 
@@ -29,7 +29,7 @@ steps:
         ls -la /workspace
         cat /workspace/ide-kita-2b3164636ede.json
 
-  # Langkah 3: Menerbitkan aplikasi ke Cloud Run
+  # Langkah 3: Deploy aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       - "run"
@@ -44,3 +44,5 @@ steps:
       - "--allow-unauthenticated"
       - "--port"
       - "8000"
+      - "--update-env-vars"
+      - "DB_NAME=$_DB_NAME,DB_USERNAME=$_DB_USERNAME,DB_PASSWORD=$_DB_PASSWORD,DB_HOST=$_DB_HOST"
