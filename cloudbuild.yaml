@@ -5,7 +5,7 @@ steps:
     args:
       - "-c"
       - |
-        echo "${_SERVICE_ACCOUNT_KEY}" > /workspace/ide-kita-2b3164636ede.json
+        echo "${_SERVICE_ACCOUNT_KEY}" > /workspace/ide-kita-5683f0576850.json
 
   # Langkah 1: Build Docker image
   - name: "gcr.io/cloud-builders/docker"

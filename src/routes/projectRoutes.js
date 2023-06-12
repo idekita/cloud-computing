@@ -32,7 +32,9 @@ const projectRoutes = [
       },
       validate: {
         params: Joi.object({
-          status: Joi.string().valid("berlangsung", "selesai").required(),
+          status: Joi.string()
+            .valid("terbuka", "berlangsung", "selesai")
+            .required(),
         }),
       },
     },
