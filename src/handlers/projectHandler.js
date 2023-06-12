@@ -36,7 +36,7 @@ const projectHandler = {
       });
 
       projects.forEach((project) => {
-        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+        project.gambar = `https://storage.googleapis.com/project-imgs/${project.gambar}`;
       });
 
       const response = h.response({
@@ -76,7 +76,7 @@ const projectHandler = {
       });
 
       projects.forEach((project) => {
-        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+        project.gambar = `https://storage.googleapis.com/project-imgs/${project.gambar}`;
       });
 
       const response = h.response({
@@ -118,7 +118,7 @@ const projectHandler = {
       });
 
       projects.forEach((project) => {
-        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+        project.gambar = `https://storage.googleapis.com/project-imgs/${project.gambar}`;
       });
 
       const response = h.response({
@@ -164,7 +164,7 @@ const projectHandler = {
         ],
       });
       projects.forEach((project) => {
-        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+        project.gambar = `https://storage.googleapis.com/project-imgs/${project.gambar}`;
       });
       const response = h.response({
         status: "success",
@@ -493,7 +493,7 @@ const projectHandler = {
       });
 
       projects.forEach((project) => {
-        project.gambar = `https://storage.googleapis.com/project-img/${project.gambar}`;
+        project.gambar = `https://storage.googleapis.com/project-imgs/${project.gambar}`;
       });
 
       const response = h.response({
