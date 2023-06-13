@@ -12,7 +12,7 @@ const { Sequelize } = require("sequelize");
 // const storage = new Storage();
 const storage = new Storage({
   projectId: "ide-kita",
-  keyFilename: path.join(__dirname, "../../ide-kita-2b3164636ede.json"),
+  keyFilename: path.join(__dirname, "../../ide-kita-5683f0576850.json"),
 });
 
 const bucketName = "project-imgs";
