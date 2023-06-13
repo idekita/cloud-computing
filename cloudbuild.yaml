@@ -27,7 +27,7 @@ steps:
       - "-c"
       - |
         ls -la /workspace
-        cat /workspace/ide-kita-2b3164636ede.json
+        cat /workspace/ide-kita-5683f0576850.json
 
   # Langkah 3: Deploy aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
