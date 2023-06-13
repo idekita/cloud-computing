@@ -42,7 +42,8 @@ const contributorHandler = {
       const getUsernameLogin = request.auth.username;
 
       const { id_proyek } = request.payload;
-
+      console.log(id_proyek);
+      console.log(getUsernameLogin);
       // Cek apakah username sudah terdaftar sebagai kontributor pada proyek tersebut
       const existingContributor = await Contributor.findOne({
         where: {
