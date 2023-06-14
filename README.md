@@ -4,8 +4,8 @@
 
 ## List of Documentation
 
-- [Backend Stack](#backend)
-- [Cloud Stack](#cloud)
+- [Tech Stack](#tech-stack)
+- [Database Relational](#db-relational)
 - [API Endpoint](#api)
   - [Auth Endpoint](#auth-endpoint)
   - [Category Endpoint](#category-endpoint)
@@ -14,17 +14,21 @@
   - [Rating Endpoint](#rating-endpoint)
   - [Recommendation Endpoint](#recommendation-endpoint)
 
-<a name="backend"></a>
+<a name="tech-stack"></a>
 
-## Backend Stack
+## Tech Stack Used
+
+### Backend Stack
 
 - Hapi.js
 - Json Web Token (JWT)
-- MySQL
+- Bcrypt (Algorithm)
+- Sequelize (ORM)
+- MySQL (Database)
 
-<a name="cloud"></a>
+### Cloud Stack
 
-## Cloud Stack
+For deployment we use Google Cloud Platform (GCP).
 
 [Here are the cloud architecture details](https://github.com/idekita#cloud-architecture)
 
@@ -32,6 +36,23 @@
 - Cloud Run
 - Cloud SQL
 - Cloud Storage
+
+#### Here are the environment variables we created:
+
+| var | Description |
+|---------|---------|
+| DB_HOST | contains the host address for connection to the database. |
+| DB_NAME | contains the database name for connection to the database. |
+| DB_USERNAME | contains the database username to access the database. |
+| DB_PASSWORD | contains the database password to access the database. |
+| \_SERVICE_ACCOUNT_KEY | contains the credential value of the GCP service account key.json. |
+
+#### CI/CD Deployment
+
+Implementing CI/CD Pipeline with Google Cloud. Create `Triggers` in `Cloud Build` that connect to `Github repositories` with manual event trigger invocation. In the repository, there is already a `Dockerfile` that contains instructions for creating a container image. The configuration that connects to `Cloud Build` is in the `cloudbuild.yaml` file. In the file there is a command that directly wraps the code into a container image, then pushes it to the `Container Registry`, and finally deploying with `Cloud Run`. So later on `Triggers`, there is a `Run button` to run a manual call.
+
+<a name="db-relational"></a>
+<img alt="db-relational" src="https://storage.googleapis.com/project-imgs/relational-database.png"><br>
 
 <a name="api"></a>
 
