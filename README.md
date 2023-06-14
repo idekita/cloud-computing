@@ -40,7 +40,7 @@ For deployment we use Google Cloud Platform (GCP).
 #### Here are the environment variables we created:
 
 | var | Description |
-|---------|
+|---------|---------|
 | DB_HOST | contains the host address for connection to the database. |
 | DB_NAME | contains the database name for connection to the database. |
 | DB_USERNAME | contains the database username to access the database. |
