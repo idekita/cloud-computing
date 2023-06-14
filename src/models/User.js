@@ -7,6 +7,7 @@ const User = sequelize.define(
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
+      autoIncrement: true,
       field: "id_user", // menentukan nama kolom di database
     },
     username: {

@@ -59,6 +59,10 @@ const authHandler = {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       const trimmedUsername = username.trim().toLowerCase().replaceAll(" ", "");
+      const trimmedCategories = pref_categories
+        .replaceAll(", ", " | ")
+        .replace(/\s*\|\s*$/, "")
+        .trim();
 
       // Simpan pengguna baru ke database
       const user = await User.create({
@@ -66,7 +70,7 @@ const authHandler = {
         password: hashedPassword,
         name,
         email,
-        pref_categories,
+        pref_categories: trimmedCategories,
       });
 
       const response = h.response({
@@ -77,6 +81,7 @@ const authHandler = {
       response.code(201);
       return response;
     } catch (error) {
+      console.log(error);
       const response = h.response({
         status: "fail",
         message: "Registrasi Gagal",
