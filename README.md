@@ -52,6 +52,7 @@ For deployment we use Google Cloud Platform (GCP).
 Implementing CI/CD Pipeline with Google Cloud. Create `Triggers` in `Cloud Build` that connect to `Github repositories` with manual event trigger invocation. In the repository, there is already a `Dockerfile` that contains instructions for creating a container image. The configuration that connects to `Cloud Build` is in the `cloudbuild.yaml` file. In the file there is a command that directly wraps the code into a container image, then pushes it to the `Container Registry`, and finally deploying with `Cloud Run`. So later on `Triggers`, there is a `Run button` to run a manual call.
 
 <a name="db-relational"></a>
+## Database Relational
 <img alt="db-relational" src="https://storage.googleapis.com/project-imgs/relational-database.png"><br>
 
 <a name="api"></a>
