@@ -13,6 +13,7 @@
   - [Contribution Endpoint](#contribution-endpoint)
   - [Rating Endpoint](#rating-endpoint)
   - [Recommendation Endpoint](#recommendation-endpoint)
+  - [Room Chat Endpoint](#chat-endpoint)
 
 <a name="tech-stack"></a>
 
@@ -25,6 +26,7 @@
 - Bcrypt (Algorithm)
 - Sequelize (ORM)
 - MySQL (Database)
+- Firebase Realtime Database (chat feature)
 
 ### Cloud Stack
 
@@ -39,12 +41,12 @@ For deployment we use Google Cloud Platform (GCP).
 
 #### Here are the environment variables we created:
 
-| var | Description |
-|---------|---------|
-| DB_HOST | contains the host address for connection to the database. |
-| DB_NAME | contains the database name for connection to the database. |
-| DB_USERNAME | contains the database username to access the database. |
-| DB_PASSWORD | contains the database password to access the database. |
+| var                   | Description                                                        |
+| --------------------- | ------------------------------------------------------------------ |
+| DB_HOST               | contains the host address for connection to the database.          |
+| DB_NAME               | contains the database name for connection to the database.         |
+| DB_USERNAME           | contains the database username to access the database.             |
+| DB_PASSWORD           | contains the database password to access the database.             |
 | \_SERVICE_ACCOUNT_KEY | contains the credential value of the GCP service account key.json. |
 
 #### CI/CD Deployment
@@ -52,7 +54,9 @@ For deployment we use Google Cloud Platform (GCP).
 Implementing CI/CD Pipeline with Google Cloud. Create `Triggers` in `Cloud Build` that connect to `Github repositories` with manual event trigger invocation. In the repository, there is already a `Dockerfile` that contains instructions for creating a container image. The configuration that connects to `Cloud Build` is in the `cloudbuild.yaml` file. In the file there is a command that directly wraps the code into a container image, then pushes it to the `Container Registry`, and finally deploying with `Cloud Run`. So later on `Triggers`, there is a `Run button` to run a manual call.
 
 <a name="db-relational"></a>
+
 ## Database Relational
+
 <img alt="db-relational" src="https://storage.googleapis.com/project-imgs/relational-database.png"><br>
 
 <a name="api"></a>
@@ -772,5 +776,69 @@ Implementing CI/CD Pipeline with Google Cloud. Create `Triggers` in `Cloud Build
             }
         }
     ]
+  }
+  ```
+
+<a name="chat-endpoint"></a>
+
+## Room Chat Endpoint
+
+<small>[back to top](#top)</small>
+
+### 1. Get Message
+
+- **URL:**
+  - `/obrolan/:id_proyek`
+- **Method:**
+  - `GET`
+- **Description:**
+  - to show room chat based on id project
+- **Header:**
+
+  - `Authorization`: `Bearer {token}`
+
+- **Response:**
+  ```JSON
+  {
+    "status": "success",
+    "messages": [
+        {
+            "messageId": "-NXxOlEb4i4Z2Q3KFvvT",
+            "id_proyek": "57",
+            "message": "halo gess",
+            "username": "deo"
+        },
+        {
+            "messageId": "-NXxRUwIlMoNXBooL7CX",
+            "id_proyek": "57",
+            "message": "p",
+            "username": "deo"
+        }
+    ]
+  }
+  ```
+
+### 2. Post Message
+
+- **URL:**
+  - `/obrolan/:id_proyek`
+- **Method:**
+  - `POST`
+- **Description:**
+  - to show room chat based on id project
+- **Header:**
+
+  - `Authorization`: `Bearer {token}`
+
+- **Request Body:**
+
+  - `message` as `string`
+
+- **Response:**
+  ```JSON
+  {
+    "status": "success",
+    "message": "Pesan berhasil dikirim",
+    "chatId": "-NXxRUwIlMoNXBooL7CX"
   }
   ```
