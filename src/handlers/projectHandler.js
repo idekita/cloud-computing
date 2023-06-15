@@ -6,17 +6,19 @@ const fs = require("fs");
 const path = require("path");
 const mime = require("mime-types");
 const { nanoid } = require("nanoid");
-const { Storage } = require("@google-cloud/storage");
 const { Sequelize } = require("sequelize");
 
-// const storage = new Storage();
+// cloud storage
+const { Storage } = require("@google-cloud/storage");
 const storage = new Storage({
   projectId: "ide-kita",
   keyFilename: path.join(__dirname, "../../ide-kita-5683f0576850.json"),
 });
-
 const bucketName = "project-imgs";
 const bucket = storage.bucket(bucketName);
+
+// firebase
+const admin = require("../config/kredensialConfig.js");
 
 const projectHandler = {
   getAllProjects: async (request, h) => {
@@ -258,6 +260,14 @@ const projectHandler = {
         postedAt: postedAt,
       });
 
+      // otomatis sebagai kontributor
+      await Contributor.create({
+        id_proyek: project.id,
+        username: getUsernameLogin,
+        role: "Creator",
+        status_lamaran: "diterima",
+      });
+
       const response = h.response({
         status: "success",
         message: "Project berhasil dibuat",
@@ -324,6 +334,11 @@ const projectHandler = {
         return response;
       }
 
+      // Menghapus room chat terkait dari Firebase Realtime Database
+      const db = admin.database();
+      const chatRef = db.ref(`obrolan/${id_proyek}`);
+      await chatRef.remove();
+
       const response = h.response({
         status: "success",
         message: "Proyek berhasil dihapus",
@@ -331,7 +346,7 @@ const projectHandler = {
       response.code(200);
       return response;
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       const response = h.response({
         status: "fail",
         message: "Gagal menghapus proyek",
