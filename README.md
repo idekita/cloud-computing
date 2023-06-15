@@ -27,6 +27,7 @@
 - Sequelize (ORM)
 - MySQL (Database)
 - Firebase Realtime Database (chat feature)
+- Postman (API Testing)
 
 ### Cloud Stack
 
