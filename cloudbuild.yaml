@@ -6,6 +6,7 @@ steps:
       - "-c"
       - |
         echo "${_SERVICE_ACCOUNT_KEY}" > /workspace/ide-kita-5683f0576850.json
+        echo "${_FIREBASE_SERVICE_ACCOUNT}" > /workspace/firebase-adminsdk-ltd4t-64bcc1cae5.json
 
   # Langkah 1: Build Docker image
   - name: "gcr.io/cloud-builders/docker"
@@ -22,7 +23,7 @@ steps:
       - "-c"
       - |
         ls -la /workspace
-        cat /workspace/ide-kita-5683f0576850.json
+        cat /workspace/firebase-adminsdk-ltd4t-64bcc1cae5.json
 
   # Langkah 3: Deploy aplikasi ke Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
