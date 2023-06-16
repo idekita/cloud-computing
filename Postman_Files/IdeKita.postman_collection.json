@@ -1,0 +1,975 @@
+{
+	"info": {
+		"_postman_id": "39dce7a4-88ab-4529-9741-4159580cd18d",
+		"name": "IdeKita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"cek8\",\r\n    \"password\": \"cek\",\r\n    \"name\": \"Cek 123\",\r\n    \"email\": \"cek@gmail.com\",\r\n    \"pref_categories\" : \"Politik | Sosial | Politik |\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/register",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Mendapatkan nilai token dari respons JSON\r",
+									"const token = pm.response.json().user.token;\r",
+									"\r",
+									"// Mengirim nilai token ke variabel lingkungan\r",
+									"pm.environment.set(\"tokenJWT\", token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"deo\",\r\n    \"password\" : \"deo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/login",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profil By Username",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{port}}/profil/{{username}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"profil",
+								"{{username}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/logout",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get All Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a array categories and contains two items', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('categories');\r",
+									"    pm.expect(data.categories).to.be.an('array');\r",
+									"    pm.expect(data.categories).to.lengthOf(5);\r",
+									"});\r",
+									"\r",
+									"pm.test('the categories should have contains only id, name, and publisher property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { categories } } = responseJson;\r",
+									"\r",
+									"    categories.forEach((category) => {\r",
+									"        pm.expect(Object.keys(category)).to.lengthOf(2);\r",
+									"        pm.expect(category).to.haveOwnProperty('id_kategori');\r",
+									"        pm.expect(category).to.haveOwnProperty('nm_kategori');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/kategori",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"kategori"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nm_proyek",
+									"value": "Sistem Deteksi Hantu",
+									"type": "text"
+								},
+								{
+									"key": "id_kategori",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "deskripsi",
+									"value": "ini deskripsi .... ya",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_mulai",
+									"value": "2023-08-30",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_selesai",
+									"value": "2023-09-30",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Lenovo/Pictures/ghost.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/proyek",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tanggal_mulai",
+									"value": "2023-09-10",
+									"type": "default"
+								},
+								{
+									"key": "tanggal_selesai",
+									"value": "2023-09-30",
+									"type": "default"
+								},
+								{
+									"key": "deskripsi",
+									"value": "Deskripsi proyek ....",
+									"type": "default"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Lenovo/Pictures/ghost.png"
+								},
+								{
+									"key": "status",
+									"value": "berlangsung",
+									"type": "default"
+								},
+								{
+									"key": "nm_proyek",
+									"value": "Ntahlah",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/proyek/{{id_proyek}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek",
+								"{{id_proyek}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/proyek",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Project by Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/proyek/kategori/{{kategori}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek",
+								"kategori",
+								"{{kategori}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects by Username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a array projects and contains two items', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('projects');\r",
+									"    pm.expect(data.projects).to.be.an('array');\r",
+									"    pm.expect(data.projects).to.lengthOf(2);\r",
+									"});\r",
+									"\r",
+									"pm.test('the projects should have contains only id, name, and publisher property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { projects } } = responseJson;\r",
+									"\r",
+									"    projects.forEach((project) => {\r",
+									"        pm.expect(Object.keys(project)).to.lengthOf(6);\r",
+									"        pm.expect(project).to.haveOwnProperty('id_projek');\r",
+									"        pm.expect(project).to.haveOwnProperty('nm_projek');\r",
+									"        pm.expect(project).to.haveOwnProperty('id_katergori');\r",
+									"        pm.expect(project).to.haveOwnProperty('project_start');\r",
+									"        pm.expect(project).to.haveOwnProperty('project_end');\r",
+									"        pm.expect(project).to.haveOwnProperty('status');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/proyek",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project by Id Proyek",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{port}}/proyek/{{id_proyek}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"proyek",
+								"{{id_proyek}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project Status Berlangsung",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{port}}/proyek/status/berlangsung",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"proyek",
+								"status",
+								"berlangsung"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project Status Selesai",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/proyek/status/selesai",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek",
+								"status",
+								"selesai"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\" : \"terbuka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/proyek/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"proyek",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/proyek/54",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek",
+								"54"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/proyek/cari/Sistem",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"proyek",
+								"cari",
+								"Sistem"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contribution",
+			"item": [
+				{
+					"name": "Register Contribute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_proyek\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}:{{port}}/kontributor",
+							"host": [
+								"{{endpoint}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"kontributor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status Kontributor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status_lamaran\": \"diterima\",\r\n    \"role\" : \"Backend Developer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/kontributor/{{id_kontributor}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"kontributor",
+								"{{id_kontributor}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contributors by Id Proyek",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/kontributor/{{id_proyek}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"kontributor",
+								"{{id_proyek}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contributors Where Status Waiting",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{port}}/kontributor/menunggu/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"kontributor",
+								"menunggu",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rating",
+			"item": [
+				{
+					"name": "Get All Ratings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/rating",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rating",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_proyek\" : 2,\r\n    \"nilai\" : 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/rating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Rating",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nilai\" : 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/rating/{{id_rating}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rating",
+								"{{id_rating}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recommendation",
+			"item": [
+				{
+					"name": "Get Recommendations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/rekomendasi",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"rekomendasi"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room Chat",
+			"item": [
+				{
+					"name": "Post Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\" : \"p\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/obrolan/{{id_proyek}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"obrolan",
+								"{{id_proyek}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Message",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenJWT}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/obrolan/{{id_proyek}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"obrolan",
+								"{{id_proyek}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

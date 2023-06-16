@@ -33,7 +33,7 @@ const recommendationHandler = {
       });
 
       recommendations.forEach((recommendation) => {
-        recommendation.project.gambar = `https://storage.googleapis.com/project-img/${recommendation.project.gambar}`;
+        recommendation.project.gambar = `https://storage.googleapis.com/project-imgs/${recommendation.project.gambar}`;
       });
 
       const response = h.response({
