@@ -19,6 +19,8 @@
 
 ## Tech Stack Used
 
+<small>[back to top](#top)</small>
+
 ### Backend Stack
 
 - Hapi.js
@@ -57,6 +59,8 @@ Implementing CI/CD Pipeline with Google Cloud. Create `Triggers` in `Cloud Build
 <a name="db-relational"></a>
 
 ## Database Relational
+
+<small>[back to top](#top)</small>
 
 <img alt="db-relational" src="https://storage.googleapis.com/project-imgs/relational-database.png"><br>
 
@@ -843,3 +847,14 @@ Implementing CI/CD Pipeline with Google Cloud. Create `Triggers` in `Cloud Build
     "chatId": "-NXxRUwIlMoNXBooL7CX"
   }
   ```
+
+## Installation
+
+<small>[back to top](#top)</small>
+
+```
+git clone https://github.com/idekita/cloud-computing.git
+cd cloud-computing
+npm install
+npm run start-dev
+```
